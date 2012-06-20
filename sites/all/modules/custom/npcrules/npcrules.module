@@ -3,10 +3,10 @@
 function npcrules_form_npc_node_form_alter (&$form, &$form_state, $form_id) {
   //dpm($form_id, '$form_id');
   //dpm($form_state, '$form_state');
-  dpm($form, '$form');
+  //dpm($form, '$form');
   
   if (isset($form_state['build_info']['args'][0]->nid)) {
-    dpm('nid exists, we are on an existing npc');
+    //dpm('nid exists, we are on an existing npc');
   } else {  //no nid, this is a new npc do awesome stuff here
       // First things first, pre-select all values on all of the fields listed in
       // the $fields_to_select_all array.
@@ -19,7 +19,8 @@ function npcrules_form_npc_node_form_alter (&$form, &$form_state, $form_id) {
     }
     // Add a validate handler to randomly select from all the fields selected
     $form['#validate'][] = 'npc_random_select'; // Select random values for all the multiselect fields
-    $form['#validate'][] = 'field_gender_female_no_hair'; // Females don't have facial  hair
+    $form['#validate'][] = 'facial_hair_female_no_hair'; // Females don't have facial  hair
+    $form['#validate'][] = 'facial_hair_male_dwarf_likely'; // Male Dwarves are likely to have facial hair
   }
 }
 
@@ -40,11 +41,37 @@ function npc_random_select ($form, &$form_state) {
 /**
  * Females don't have facial  hair
  */
-function field_gender_female_no_hair ($form, &$form_state) {
-dpm($form_state, '$form_state');
+function facial_hair_female_no_hair ($form, &$form_state) {
+//dpm($form_state, '$form_state');
   if ($form_state['values']['field_gender']['und'][0]['value'] == 'female') {
     form_set_value($form['field_facial_hair_style'], array('und' => array(0 => array('value' => 'none'))), $form_state);
   }
+}
+
+/**
+ *Male Dwarves have are likely to have facial hair
+ */
+function facial_hair_male_dwarf_likely ($form, &$form_state) {
+  if (
+      $form_state['values']['field_gender']['und'][0]['value'] == 'male'
+      &&
+      $form_state['values']['field_npc_race']['und'][0]['value'] == 'dwarf'
+      &&
+      is_null($form_state['values']['field_facial_hair_style']['und'][0]['value'])
+      )
+    {
+      $random = rand(1,100);
+      if ($random < 85) { // 85% chance that this dwarf will have facial hair.
+        $facial_hair_options = _getopts($form, 'field_facial_hair_style');
+        foreach ($facial_hair_options as $key => $option) {
+          if ($key == '_none' || $key == 'none') {
+            unset($facial_hair_options[$key]);
+          }
+        }
+        $option = array_rand($facial_hair_options);
+        form_set_value($form['field_facial_hair_style'], array('und' => array(0 => array('value' => $option))), $form_state);
+      }
+    }
 }
 
 function _get_random_npc_fields () {
@@ -53,4 +80,8 @@ function _get_random_npc_fields () {
         'field_hair_color',
         'field_gender',
         'field_npc_race');
+}
+
+function _getopts ($form, $field) {
+  return $form[$field]['und']['#options'];
 }
