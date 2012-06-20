@@ -1,0 +1,7 @@
+name = "NPC Rules"
+dependencies[] = "rules"
+description = "Provides overrides for the NPC content type."
+package = "RPG RULES"
+core = "7.x"
+
+files[] = npcrules.module

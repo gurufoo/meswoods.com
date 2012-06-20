@@ -1,0 +1,56 @@
+<?php
+
+function npcrules_form_npc_node_form_alter (&$form, &$form_state, $form_id) {
+  //dpm($form_id, '$form_id');
+  //dpm($form_state, '$form_state');
+  dpm($form, '$form');
+  
+  if (isset($form_state['build_info']['args'][0]->nid)) {
+    dpm('nid exists, we are on an existing npc');
+  } else {  //no nid, this is a new npc do awesome stuff here
+      // First things first, pre-select all values on all of the fields listed in
+      // the $fields_to_select_all array.
+      $fields_to_select_all = _get_random_npc_fields();
+      foreach ($fields_to_select_all as $field) {
+        foreach ($form[$field]['und']['#options'] as $key => $value) {
+          $selected_options[] = $key;
+        }
+      $form[$field]['und']['#default_value'] = $selected_options;
+    }
+    // Add a validate handler to randomly select from all the fields selected
+    $form['#validate'][] = 'npc_random_select'; // Select random values for all the multiselect fields
+    $form['#validate'][] = 'field_gender_female_no_hair'; // Females don't have facial  hair
+  }
+}
+
+
+/**
+ * Select random values for all the multiselect fields
+ */
+function npc_random_select ($form, &$form_state) {
+  $fields = _get_random_npc_fields();
+  foreach ($fields as $field) {
+    $random = array_rand($form_state['values'][$field]['und']);
+    $value = $form_state['values'][$field]['und'][$random]['value'];
+    //dpm($field, '$field');
+    //dpm($value, '$value');
+    form_set_value($form[$field], array('und' => array(0 => array('value' => $value))), $form_state);
+  }
+}
+/**
+ * Females don't have facial  hair
+ */
+function field_gender_female_no_hair ($form, &$form_state) {
+dpm($form_state, '$form_state');
+  if ($form_state['values']['field_gender']['und'][0]['value'] == 'female') {
+    form_set_value($form['field_facial_hair_style'], array('und' => array(0 => array('value' => 'none'))), $form_state);
+  }
+}
+
+function _get_random_npc_fields () {
+  return array(
+        'field_facial_hair_style',
+        'field_hair_color',
+        'field_gender',
+        'field_npc_race');
+}
