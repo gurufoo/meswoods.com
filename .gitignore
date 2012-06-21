@@ -1,4 +1,6 @@
 sites/default/settings.php
 *.gz
 *.tar.gz
+*.tar
+sites/default/files
 

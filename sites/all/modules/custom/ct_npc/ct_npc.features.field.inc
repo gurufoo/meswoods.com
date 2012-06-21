@@ -373,6 +373,102 @@ function ct_npc_field_default_fields() {
     ),
   );
 
+  // Exported field: 'node-npc-field_motivation'.
+  $fields['node-npc-field_motivation'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_motivation',
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'list',
+      'settings' => array(
+        'allowed_values' => array(
+          'glory' => 'Glory',
+          'security' => 'Security',
+          'information' => 'Information',
+          'protection' => 'Protection',
+          'fame_' => 'Fame',
+          'service' => 'Service',
+          'equality' => 'Equality',
+          'secrets' => 'Secrets',
+          'cultural_exchange' => 'Cultural Exchange',
+          'authority' => 'Authority',
+          'individuality' => 'Individuality',
+          'unity' => 'Unity',
+          'dominance' => 'Dominance',
+          'victory' => 'Victory',
+          'stability' => 'Stability',
+          'cleverness' => 'Cleverness',
+          'debate' => 'Debate',
+          'family_values' => 'Family Values',
+          'nurturing' => 'Nurturing',
+          'enlightenment' => 'Enlightenment',
+          'influence' => 'Influence',
+          'loyalty' => 'Loyalty',
+          'fiddly_details' => 'Fiddly Details',
+          'justice' => 'Justice',
+          'beauty' => 'Beauty',
+          'intense_experience' => 'Intense Experience',
+          'power' => 'Power',
+          'idealism' => 'Idealism',
+          'exploration' => 'Exploration',
+          'wisdom' => 'Wisdom',
+          'discipline' => 'Discipline',
+          'eccentricity' => 'Eccentricity',
+          'invention' => 'Invention',
+          'faith' => 'Faith',
+          'interpersonal_connections' => 'Interpersonal Connections',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'translatable' => '0',
+      'type' => 'list_text',
+    ),
+    'field_instance' => array(
+      'bundle' => 'npc',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'list',
+          'settings' => array(),
+          'type' => 'list_default',
+          'weight' => 6,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_motivation',
+      'label' => 'Motivation',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_select',
+        'weight' => '6',
+      ),
+    ),
+  );
+
   // Exported field: 'node-npc-field_npc_mannerisms'.
   $fields['node-npc-field_npc_mannerisms'] = array(
     'field_config' => array(
@@ -591,6 +687,7 @@ function ct_npc_field_default_fields() {
   t('Gender');
   t('Hair Color');
   t('Mannerisms');
+  t('Motivation');
   t('Race');
 
   return $fields;
