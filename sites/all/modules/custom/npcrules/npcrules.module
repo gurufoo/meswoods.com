@@ -18,17 +18,21 @@ function npcrules_form_npc_node_form_alter (&$form, &$form_state, $form_id) {
       $form[$field]['und']['#default_value'] = $selected_options;
     }
     // Add a validate handler to randomly select from all the fields selected
-    $form['#validate'][] = 'npc_random_select'; // Select random values for all the multiselect fields
+    $form['#validate'][] = 'npc_select_random_options_all'; // Select random values for all the multiselect fields
     $form['#validate'][] = 'facial_hair_female_no_hair'; // Females don't have facial  hair
     $form['#validate'][] = 'facial_hair_male_dwarf_likely'; // Male Dwarves are likely to have facial hair
   }
 }
-
+/**
+ * Facial hair rules.  And these are the criteria and responses governing
+ * facial hair ;^)
+ */
+module_load_include('inc', 'npcrules', 'inc/facial_hair.rules');
 
 /**
  * Select random values for all the multiselect fields
  */
-function npc_random_select ($form, &$form_state) {
+function npc_select_random_options_all ($form, &$form_state) {
   $fields = _get_random_npc_fields();
   foreach ($fields as $field) {
     $random = array_rand($form_state['values'][$field]['und']);
@@ -38,50 +42,50 @@ function npc_random_select ($form, &$form_state) {
     form_set_value($form[$field], array('und' => array(0 => array('value' => $value))), $form_state);
   }
 }
-/**
- * Females don't have facial  hair
- */
-function facial_hair_female_no_hair ($form, &$form_state) {
-//dpm($form_state, '$form_state');
-  if ($form_state['values']['field_gender']['und'][0]['value'] == 'female') {
-    form_set_value($form['field_facial_hair_style'], array('und' => array(0 => array('value' => 'none'))), $form_state);
-  }
-}
+
 
 /**
- *Male Dwarves have are likely to have facial hair
+ * Retrieves a list of elements (fields). Often this is used to operate on all
+ * the fields that will have random values.
+ *
+ * @return array An array of elements (fields).
  */
-function facial_hair_male_dwarf_likely ($form, &$form_state) {
-  if (
-      $form_state['values']['field_gender']['und'][0]['value'] == 'male'
-      &&
-      $form_state['values']['field_npc_race']['und'][0]['value'] == 'dwarf'
-      &&
-      is_null($form_state['values']['field_facial_hair_style']['und'][0]['value'])
-      )
-    {
-      $random = rand(1,100);
-      if ($random < 85) { // 85% chance that this dwarf will have facial hair.
-        $facial_hair_options = _getopts($form, 'field_facial_hair_style');
-        foreach ($facial_hair_options as $key => $option) {
-          if ($key == '_none' || $key == 'none') {
-            unset($facial_hair_options[$key]);
-          }
-        }
-        $option = array_rand($facial_hair_options);
-        form_set_value($form['field_facial_hair_style'], array('und' => array(0 => array('value' => $option))), $form_state);
-      }
-    }
-}
-
 function _get_random_npc_fields () {
   return array(
         'field_facial_hair_style',
         'field_hair_color',
         'field_gender',
-        'field_npc_race');
+        'field_npc_race',
+        'field_npc_mannerisms',
+        'field_distinguishing_features');
 }
 
+/**
+ * Retrieves a list of options from a form element.  Typically this is used
+ * to get all the options in order to select a random option.
+ 
+ * @param array $form A Drupal FAPI form array
+ * @param string $field The machine name for an element
+ *
+ * @return array An array of options for the element
+ */
 function _getopts ($form, $field) {
   return $form[$field]['und']['#options'];
+}
+
+
+/**
+ * Roll percentile dice and determine the result
+ * 
+ * @param int $chance The % chance that something is true
+ *
+ * @return boolean
+ */
+function _rollpercentile ($chance = 50) {
+  $roll = rand(1, 100);
+  if ($roll < $chance) { 
+    return TRUE;
+  }else {
+    return FALSE;
+  }
 }
