@@ -289,5 +289,139 @@ function ct_npc_panelizer_defaults() {
   $panelizer->display = $display;
   $export['node:npc:default'] = $panelizer;
 
+  $panelizer = new stdClass();
+  $panelizer->disabled = FALSE; /* Edit this to true to make a default panelizer disabled initially */
+  $panelizer->api_version = 1;
+  $panelizer->name = 'node:npc:npc_simple';
+  $panelizer->title = 'NPC Simple';
+  $panelizer->panelizer_type = 'node';
+  $panelizer->panelizer_key = 'npc';
+  $panelizer->no_blocks = TRUE;
+  $panelizer->css_id = '';
+  $panelizer->css = '';
+  $panelizer->pipeline = 'standard';
+  $panelizer->contexts = array();
+  $panelizer->relationships = array();
+  $panelizer->did = 6;
+  $display = new panels_display();
+  $display->layout = 'flexible';
+  $display->layout_settings = array();
+  $display->panel_settings = array(
+    'style_settings' => array(
+      'default' => NULL,
+      'center' => NULL,
+    ),
+  );
+  $display->cache = array();
+  $display->title = '';
+  $display->content = array();
+  $display->panels = array();
+    $pane = new stdClass();
+    $pane->pid = 'new-10';
+    $pane->panel = 'center';
+    $pane->type = 'page_tabs';
+    $pane->subtype = 'page_tabs';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'type' => 'both',
+      'id' => 'tabs',
+      'override_title' => 0,
+      'override_title_text' => '',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 0;
+    $pane->locks = array();
+    $display->content['new-10'] = $pane;
+    $display->panels['center'][0] = 'new-10';
+    $pane = new stdClass();
+    $pane->pid = 'new-11';
+    $pane->panel = 'center';
+    $pane->type = 'node_title';
+    $pane->subtype = 'node_title';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'link' => 1,
+      'context' => 'panelizer',
+      'override_title' => 0,
+      'override_title_text' => '',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 1;
+    $pane->locks = array();
+    $display->content['new-11'] = $pane;
+    $display->panels['center'][1] = 'new-11';
+    $pane = new stdClass();
+    $pane->pid = 'new-12';
+    $pane->panel = 'center';
+    $pane->type = 'entity_field';
+    $pane->subtype = 'node:field_npc_race';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'label' => 'title',
+      'formatter' => 'list_default',
+      'delta_limit' => '0',
+      'delta_offset' => '0',
+      'delta_reversed' => 0,
+      'formatter_settings' => array(),
+      'context' => 'panelizer',
+      'override_title' => 0,
+      'override_title_text' => '',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 2;
+    $pane->locks = array();
+    $display->content['new-12'] = $pane;
+    $display->panels['center'][2] = 'new-12';
+    $pane = new stdClass();
+    $pane->pid = 'new-13';
+    $pane->panel = 'center';
+    $pane->type = 'entity_field';
+    $pane->subtype = 'node:field_gender';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'label' => 'title',
+      'formatter' => 'list_default',
+      'delta_limit' => '0',
+      'delta_offset' => '0',
+      'delta_reversed' => 0,
+      'formatter_settings' => array(),
+      'context' => 'panelizer',
+      'override_title' => 0,
+      'override_title_text' => '',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 3;
+    $pane->locks = array();
+    $display->content['new-13'] = $pane;
+    $display->panels['center'][3] = 'new-13';
+  $display->hide_title = PANELS_TITLE_FIXED;
+  $display->title_pane = '0';
+  $panelizer->display = $display;
+  $export['node:npc:npc_simple'] = $panelizer;
+
   return $export;
 }
