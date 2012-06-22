@@ -436,7 +436,7 @@ function ct_npc_field_default_fields() {
       'bundle' => 'npc',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '',
+      'description' => 'What is it that really gets your character’s motor running?',
       'display' => array(
         'default' => array(
           'label' => 'above',
@@ -689,6 +689,7 @@ function ct_npc_field_default_fields() {
   t('Mannerisms');
   t('Motivation');
   t('Race');
+  t('What is it that really gets your character’s motor running?');
 
   return $fields;
 }
