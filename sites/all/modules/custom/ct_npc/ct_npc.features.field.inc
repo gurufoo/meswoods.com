@@ -145,7 +145,7 @@ function ct_npc_field_default_fields() {
       'bundle' => 'npc',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => '',
+      'description' => 'A trait that is intuitively obvious to the casual observer.  Likely to be remembered.',
       'display' => array(
         'default' => array(
           'label' => 'above',
@@ -437,7 +437,7 @@ function ct_npc_field_default_fields() {
       'bundle' => 'npc',
       'default_value' => NULL,
       'deleted' => '0',
-      'description' => 'What is your character’s first reaction to a threat (physical or otherwise)?',
+      'description' => 'What is the character’s first reaction to a threat (physical or otherwise)?',
       'display' => array(
         'default' => array(
           'label' => 'above',
@@ -779,6 +779,7 @@ function ct_npc_field_default_fields() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('A trait that is intuitively obvious to the casual observer.  Likely to be remembered.');
   t('Distinguishing Features');
   t('Facial Hair Style');
   t('Gender');
@@ -788,7 +789,7 @@ function ct_npc_field_default_fields() {
   t('Motivation');
   t('Race');
   t('What is it that really gets your character’s motor running?');
-  t('What is your character’s first reaction to a threat (physical or otherwise)?');
+  t('What is the character’s first reaction to a threat (physical or otherwise)?');
 
   return $fields;
 }
