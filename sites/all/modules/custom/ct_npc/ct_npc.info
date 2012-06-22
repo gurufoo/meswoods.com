@@ -20,6 +20,7 @@ features[field][] = node-npc-field_distinguishing_features
 features[field][] = node-npc-field_facial_hair_style
 features[field][] = node-npc-field_gender
 features[field][] = node-npc-field_hair_color
+features[field][] = node-npc-field_instinct
 features[field][] = node-npc-field_motivation
 features[field][] = node-npc-field_npc_mannerisms
 features[field][] = node-npc-field_npc_race

@@ -373,6 +373,103 @@ function ct_npc_field_default_fields() {
     ),
   );
 
+  // Exported field: 'node-npc-field_instinct'.
+  $fields['node-npc-field_instinct'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_instinct',
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'list',
+      'settings' => array(
+        'allowed_values' => array(
+          'hostility' => 'Hostility',
+          'stand_ground' => 'Stand Ground',
+          'misdirection' => 'Misdirection',
+          'protect_others' => 'Protect Others',
+          'call_aid' => 'Call Aid',
+          'observe' => 'Observe',
+          'diplomacy' => 'Diplomacy',
+          'ambush' => 'Ambush',
+          'dismiss' => 'Dismiss',
+          'form_up' => 'Form Up',
+          'confound' => 'Confound',
+          'stall' => 'Stall',
+          'aggression' => 'Aggression',
+          'dig_in' => 'Dig In',
+          'debate' => 'Debate',
+          'claim_territory' => 'Claim Territory',
+          'posture' => 'Posture',
+          'exploit_weakness' => 'Exploit Weakness',
+          'negotiation' => 'Negotiation',
+          'fight_dirty' => 'Fight Dirty',
+          'defuse_anger' => 'Defuse Anger',
+          'invoke_tradition' => 'Invoke Tradition',
+          'taunt' => 'Taunt',
+          'give_in' => 'Give In',
+          'attack' => 'Attack',
+          'establish_defenses' => 'Establish Defenses',
+          'speed' => 'Speed',
+          'spread_out' => 'Spread Out',
+          'intimidation' => 'Intimidation',
+          'maneuver' => 'Maneuver',
+          'invoke_law' => 'Invoke Law',
+          'seduce' => 'Seduce',
+          'seek_commonality' => 'Seek Commonality',
+          'organize_allies' => 'Organize Allies',
+          'fire_needlessly_big_gun' => 'Fire Needlessly Big Gun',
+          'fall_back' => 'Fall Back',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'translatable' => '0',
+      'type' => 'list_text',
+    ),
+    'field_instance' => array(
+      'bundle' => 'npc',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'What is your character’s first reaction to a threat (physical or otherwise)?',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'list',
+          'settings' => array(),
+          'type' => 'list_default',
+          'weight' => 7,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_instinct',
+      'label' => 'Instinct',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_select',
+        'weight' => '7',
+      ),
+    ),
+  );
+
   // Exported field: 'node-npc-field_motivation'.
   $fields['node-npc-field_motivation'] = array(
     'field_config' => array(
@@ -686,10 +783,12 @@ function ct_npc_field_default_fields() {
   t('Facial Hair Style');
   t('Gender');
   t('Hair Color');
+  t('Instinct');
   t('Mannerisms');
   t('Motivation');
   t('Race');
   t('What is it that really gets your character’s motor running?');
+  t('What is your character’s first reaction to a threat (physical or otherwise)?');
 
   return $fields;
 }
