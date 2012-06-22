@@ -2,16 +2,16 @@
 /* This also can include ANY global CSS that applies site-wide. Unless overwritten by a more specific style rule, CSS declarations in global.css will apply site-wide. */
 
 #section-content h2.pane-title{
-border-radius: 5px 5px 0px 0px; 
--moz-border-radius: 5px 5px 0px 0px ; 
--webkit-border-radius: 5px 5px 0px 0px; 
-border: 1px solid #000000;
-text-shadow: 2px 2px 5px #000000;
-color:#F5F5F5;
-box-shadow:2px 2px 5px #000000;
-padding-left:10px;
-z-index:1;
-margin-bottom:0px;
+	border-radius: 5px 5px 0px 0px; 
+	-moz-border-radius: 5px 5px 0px 0px ; 
+	-webkit-border-radius: 5px 5px 0px 0px; 
+	border: 1px solid #000000;
+	text-shadow: 2px 2px 5px #000000;
+	color:#F5F5F5;
+	box-shadow:2px 2px 5px #000000;
+	padding-left:10px;
+	z-index:1;
+	margin-bottom:0px;
 }
 
 body{
@@ -19,12 +19,12 @@ body{
 }
 
 #zone-content{
-background-color:white;
-border-radius: 5px 5px 5px 5px; 
--moz-border-radius: 5px 5px 5px 5px; 
--webkit-border-radius: 5px 5px 5px 5px;
+	background-color:white;
+	border-radius: 5px 5px 5px 5px; 
+	-moz-border-radius: 5px 5px 5px 5px; 
+	-webkit-border-radius: 5px 5px 5px 5px;
+  box-shadow: 0px 0px 10px 10px #fff;
 }
-
 
 
 #section-content .pane-content{

@@ -1,9 +1,6 @@
 /* This file will hold styles that are loaded using the same media query as the wide grid. */
 body{
-	background-image:url(../images/3D_Fantasy_Places_HD_0012.jpg);
-}
-#zone-content{
-	box-shadow: 0px 0px 10px 10px #fff;
+	background-image:url(../images/main_bg-wide.jpg);
 }
 
 h2.pane-title{
