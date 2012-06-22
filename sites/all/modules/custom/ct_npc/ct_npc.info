@@ -26,7 +26,6 @@ features[field][] = node-npc-field_npc_mannerisms
 features[field][] = node-npc-field_npc_race
 features[field_group][] = group_npc_hair|node|npc|form
 features[node][] = npc
-features[panelizer_defaults][] = node:npc:default
 features[panelizer_defaults][] = node:npc:npc_simple
 features[variable][] = comment_anonymous_npc
 features[variable][] = comment_default_mode_npc
