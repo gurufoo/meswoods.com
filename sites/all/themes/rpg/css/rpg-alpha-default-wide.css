@@ -6,3 +6,16 @@ body{
 h2.pane-title{
 	background-image:url(../images/pane-title-bg-wide.jpg);
 }
+
+.container-12 .grid-12 .panel-pane h2.pane-title{
+	width:1150px;
+}
+
+.container-12 .grid-4 .panel-pane h2.pane-title{
+	width:348px;
+}
+
+.container-12 .grid-4 .panel-pane .pane-content{
+	width:348px;
+}
+

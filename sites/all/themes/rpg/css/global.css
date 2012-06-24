@@ -1,10 +1,27 @@
 /* This file will hold styles for the mobile version of your website (mobile first). */
 /* This also can include ANY global CSS that applies site-wide. Unless overwritten by a more specific style rule, CSS declarations in global.css will apply site-wide. */
+body{
+  background-color:#494845;
+}
 
-#section-content h2.pane-title{
-	border-radius: 5px 5px 0px 0px; 
-	-moz-border-radius: 5px 5px 0px 0px ; 
-	-webkit-border-radius: 5px 5px 0px 0px; 
+#zone-content{
+	background-color:rgba(255,255,255,0.5);	
+	border-radius: 5px 5px 5px 5px; 
+	-moz-border-radius: 5px 5px 5px 5px; 
+	-webkit-border-radius: 5px 5px 5px 5px;
+  box-shadow: 0px 0px 10px 10px rgba(255,255,255,0.5);
+}
+
+.panel-panel{
+	margin-top:20px;
+}
+
+h2.pane-title{
+	position:absolute;
+	top:-15px;
+	border-radius: 10px 0px 10px 0px; 
+	-moz-border-radius: 10px 0px 10px 0px ; 
+	-webkit-border-radius: 10px 0px 10px 0px; 
 	border: 1px solid #000000;
 	text-shadow: 2px 2px 5px #000000;
 	color:#F5F5F5;
@@ -12,29 +29,19 @@
 	padding-left:10px;
 	z-index:1;
 	margin-bottom:0px;
-}
-
-body{
-  background-color:#494845;
-}
-
-#zone-content{
-	background-color:white;
-	border-radius: 5px 5px 5px 5px; 
-	-moz-border-radius: 5px 5px 5px 5px; 
-	-webkit-border-radius: 5px 5px 5px 5px;
-  box-shadow: 0px 0px 10px 10px #fff;
+	background-color:#1B1B1B;
 }
 
 
-#section-content .pane-content{
-  padding:0 10px 10px 10px;
+
+.pane-content{
+  padding:40px 10px 10px 10px;
   background-color:#cccccc;
   box-shadow:2px 2px 5px #000000;
-  border-radius: 0px 0px 5px 5px; 
-  -moz-border-radius: 0px 0px 5px 5px; 
-  -webkit-border-radius: 0px 0px 5px 5px;
+  border-radius: 10px 0px 10px 0px; 
+  -moz-border-radius: 0px 5px 0px 5px; 
+  -webkit-border-radius: 0px 5px 0px 5px;
   margin-bottom:10px;
-  border-right:1px solid #000000;
-  border-left:1px solid #000000;
+	margin-left:10px;
+  border:1px solid #000000;
 }
