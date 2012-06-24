@@ -777,6 +777,200 @@ function ct_npc_field_default_fields() {
     ),
   );
 
+  // Exported field: 'node-npc-field_profession_adventurer'.
+  $fields['node-npc-field_profession_adventurer'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_profession_adventurer',
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'list',
+      'settings' => array(
+        'allowed_values' => array(
+          'fighter' => 'Fighter',
+          'cleric' => 'Cleric',
+          'wizard' => 'Wizard',
+          'rogue' => 'Rogue',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'translatable' => '0',
+      'type' => 'list_text',
+    ),
+    'field_instance' => array(
+      'bundle' => 'npc',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'list',
+          'settings' => array(),
+          'type' => 'list_default',
+          'weight' => 9,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_profession_adventurer',
+      'label' => 'Profession, adventurer',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_select',
+        'weight' => '9',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-npc-field_profession_mundane'.
+  $fields['node-npc-field_profession_mundane'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_profession_mundane',
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'list',
+      'settings' => array(
+        'allowed_values' => array(
+          'actor' => 'Actor',
+          'alchemist' => 'Alchemist',
+          'apothecary' => 'Apothecary',
+          'architect' => 'Architect',
+          'armorsmith' => 'Armorsmith',
+          'bard' => 'Bard',
+          'bartender' => 'Bartender',
+          'beekeper' => 'Beekeper',
+          'blacksmith' => 'Blacksmith',
+          'brewer' => 'Brewer',
+          'bricklayer' => 'Bricklayer',
+          'burglar' => 'Burglar',
+          'butcher' => 'Butcher',
+          'calligrapher' => 'Calligrapher',
+          'capitain_of_the_guard' => 'Capitain of the Guard',
+          'carpenter' => 'Carpenter',
+          'cartographer' => 'Cartographer',
+          'charlatan' => 'Charlatan',
+          'clothier' => 'Clothier',
+          'constable' => 'Constable',
+          'cook' => 'Cook',
+          'cutpurse' => 'Cutpurse',
+          'dancer' => 'Dancer',
+          'farmer' => 'Farmer',
+          'fence' => 'Fence',
+          'fisherman' => 'Fisherman',
+          'gardener' => 'Gardener',
+          'glassblower' => 'Glassblower',
+          'grocer' => 'Grocer',
+          'hawker' => 'Hawker',
+          'herald' => 'Herald',
+          'horse_trainer' => 'Horse trainer',
+          'huntsman' => 'Huntsman',
+          'jester' => 'Jester',
+          'jeweler' => 'Jeweler',
+          'judge' => 'Judge',
+          'librarian' => 'Librarian',
+          'locksmith' => 'Locksmith',
+          'maker_of_musical_instruments' => 'Maker of musical instruments',
+          'mason' => 'Mason',
+          'miner' => 'Miner',
+          'moneylender' => 'Moneylender',
+          'music_composer' => 'Music Composer',
+          'noble' => 'Noble',
+          'painter' => 'Painter',
+          'papermaker' => 'Papermaker',
+          'playwright' => 'Playwright',
+          'poet' => 'Poet',
+          'priest' => 'Priest',
+          'professor' => 'Professor',
+          'quarryman' => 'Quarryman',
+          'rat_catcher' => 'Rat catcher',
+          'restaurateur' => 'Restaurateur',
+          'scribe' => 'Scribe',
+          'sculptor' => 'Sculptor',
+          'shepherd' => 'Shepherd',
+          'sheriff' => 'Sheriff',
+          'shipwright' => 'Shipwright',
+          'shoemaker' => 'Shoemaker',
+          'spice_merchant' => 'Spice Merchant',
+          'stonemason' => 'Stonemason',
+          'tailor' => 'Tailor',
+          'tax_collector' => 'Tax Collector',
+          'trapper' => 'Trapper',
+          'watchman' => 'Watchman',
+          'weaponsmith' => 'Weaponsmith',
+          'weaver' => 'Weaver',
+          'woodcutter' => 'Woodcutter',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'translatable' => '0',
+      'type' => 'list_text',
+    ),
+    'field_instance' => array(
+      'bundle' => 'npc',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'list',
+          'settings' => array(),
+          'type' => 'list_default',
+          'weight' => 8,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_profession_mundane',
+      'label' => 'Profession, mundane',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_select',
+        'weight' => '8',
+      ),
+    ),
+  );
+
   // Translatables
   // Included for use with string extractors like potx.
   t('A trait that is intuitively obvious to the casual observer.  Likely to be remembered.');
@@ -787,6 +981,8 @@ function ct_npc_field_default_fields() {
   t('Instinct');
   t('Mannerisms');
   t('Motivation');
+  t('Profession, adventurer');
+  t('Profession, mundane');
   t('Race');
   t('What is it that really gets your character’s motor running?');
   t('What is the character’s first reaction to a threat (physical or otherwise)?');
