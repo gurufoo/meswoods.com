@@ -29,7 +29,6 @@ function _generate_random_name($race, $gender) {
 								$line = fgets($file_handle);
 								//dpm($line, '$line');
 								if (trim($line) != '') {
-
 												$namearr = explode(',', trim($line));
 												if ($namearr[1] == $race && $namearr[2] == $gender) {
 																$names[$namearr[0]]['race'] = $namearr[1];
