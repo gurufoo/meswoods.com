@@ -10,6 +10,73 @@
 function ct_npc_field_default_fields() {
   $fields = array();
 
+  // Exported field: 'node-npc-field_alignment'.
+  $fields['node-npc-field_alignment'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_alignment',
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'list',
+      'settings' => array(
+        'allowed_values' => array(
+          'lg' => 'Lawful Good',
+          'le' => 'Lawful Evil',
+          'ng' => 'Neutral Good',
+          'ne' => 'Neutral Evil',
+          'cg' => 'Chaotic Good',
+          'ce' => 'Chaotic Evil',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'translatable' => '0',
+      'type' => 'list_text',
+    ),
+    'field_instance' => array(
+      'bundle' => 'npc',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'list',
+          'settings' => array(),
+          'type' => 'list_default',
+          'weight' => 10,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_alignment',
+      'label' => 'Alignment',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_select',
+        'weight' => '10',
+      ),
+    ),
+  );
+
   // Exported field: 'node-npc-field_distinguishing_features'.
   $fields['node-npc-field_distinguishing_features'] = array(
     'field_config' => array(
@@ -196,7 +263,6 @@ function ct_npc_field_default_fields() {
       'module' => 'list',
       'settings' => array(
         'allowed_values' => array(
-          'none' => 'No facial hair',
           'fu_manchu' => 'Fu Manchu',
           'mountain_man' => 'Mountain Man',
           'goatee_small' => 'Goatee, Small',
@@ -974,6 +1040,7 @@ function ct_npc_field_default_fields() {
   // Translatables
   // Included for use with string extractors like potx.
   t('A trait that is intuitively obvious to the casual observer.  Likely to be remembered.');
+  t('Alignment');
   t('Distinguishing Features');
   t('Facial Hair Style');
   t('Gender');

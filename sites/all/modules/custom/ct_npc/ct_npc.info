@@ -16,6 +16,7 @@ features[ctools][] = field_group:field_group:1
 features[ctools][] = panelizer:panelizer:1
 features[ctools][] = strongarm:strongarm:1
 features[features_api][] = api:1
+features[field][] = node-npc-field_alignment
 features[field][] = node-npc-field_distinguishing_features
 features[field][] = node-npc-field_facial_hair_style
 features[field][] = node-npc-field_gender

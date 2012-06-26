@@ -66,7 +66,8 @@ function _get_random_npc_fields () {
         'field_motivation',
 				'field_instinct',
 				'field_profession_mundane',
-				'field_profession_adventurer');
+				'field_profession_adventurer',
+        'field_alignment');
 }
 
 /**
