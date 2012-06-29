@@ -26,16 +26,18 @@ function npcrules_form_npc_node_form_alter (&$form, &$form_state, $form_id) {
     $form['#validate'][] = 'facial_hair_female_no_hair'; // Females don't have facial  hair
     $form['#validate'][] = 'facial_hair_male_dwarf_likely'; // Male Dwarves are likely to have facial hair
 		$form['#validate'][] = 'profession_adventurer_unlikely'; // NPCs aren't likely to have adventuring professions
+    $form['#validate'][] = 'generate_npc_height'; // Generate an NPCs height
     $form['#validate'][] = 'generate_npc_name'; // Generate a name
   }
 }
+
 /**
- * Facial hair rules.  And these are the criteria and responses governing
- * facial hair ;^)
- */
+* Load the various rules files
+*/
 module_load_include('inc', 'npcrules', 'inc/facial_hair.rules');
 module_load_include('inc', 'npcrules', 'inc/name.rules');
 module_load_include('inc', 'npcrules', 'inc/profession_adventurer.rules');
+module_load_include('inc', 'npcrules', 'inc/height.rules');
 /**
  * Select random values for all the multiselect fields
  */

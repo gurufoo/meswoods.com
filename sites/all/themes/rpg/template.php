@@ -10,3 +10,10 @@
  * for your subtheme grows. Please read the README.txt in the /preprocess and /process subfolders
  * for more information on this topic.
  */
+function rpg_field__field_height($variables) {
+  $height = $variables['element']['#items'][0]['value'];
+  $feet = floor($height/12);
+  $inches = $height%12;
+  $display = "$feet' $inches\"";
+  return $display;
+}
