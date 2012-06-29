@@ -116,6 +116,11 @@ function ct_npc_field_default_fields() {
           'dressed_in_furs_or_leather' => 'Dressed in furs or leather',
           'dressed_in_silks_and_lace' => 'Dressed in silks and lace',
           'dresses_colorblind' => 'Dresses colorblind',
+          'exceptionally_fat' => 'Exceptionally Fat',
+          'exceptionally_muscled' => 'Exceptionally Muscled',
+          'exceptionally_short' => 'Exceptionally Short',
+          'exceptionally_tall' => 'Exceptionally Tall',
+          'exceptionally_thin' => 'Exceptionally Thin',
           'exotic_weapon' => 'Exotic weapon',
           'eye_tic' => 'Eye tic',
           'facial_piercing' => 'Facial piercing',
@@ -435,6 +440,68 @@ function ct_npc_field_default_fields() {
         'settings' => array(),
         'type' => 'options_select',
         'weight' => '3',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-npc-field_height'.
+  $fields['node-npc-field_height'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_height',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'locked' => '0',
+      'module' => 'number',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'number_integer',
+    ),
+    'field_instance' => array(
+      'bundle' => 'npc',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'number',
+          'settings' => array(
+            'decimal_separator' => '.',
+            'prefix_suffix' => TRUE,
+            'scale' => 0,
+            'thousand_separator' => ' ',
+          ),
+          'type' => 'number_integer',
+          'weight' => 11,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_height',
+      'label' => 'Height',
+      'required' => 0,
+      'settings' => array(
+        'max' => '92',
+        'min' => '39',
+        'prefix' => '',
+        'suffix' => '',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'number',
+        'settings' => array(),
+        'type' => 'number',
+        'weight' => '11',
       ),
     ),
   );
@@ -1037,6 +1104,68 @@ function ct_npc_field_default_fields() {
     ),
   );
 
+  // Exported field: 'node-npc-field_weight'.
+  $fields['node-npc-field_weight'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_weight',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'locked' => '0',
+      'module' => 'number',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'number_integer',
+    ),
+    'field_instance' => array(
+      'bundle' => 'npc',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'number',
+          'settings' => array(
+            'decimal_separator' => '.',
+            'prefix_suffix' => TRUE,
+            'scale' => 0,
+            'thousand_separator' => ' ',
+          ),
+          'type' => 'number_integer',
+          'weight' => 12,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_weight',
+      'label' => 'Weight',
+      'required' => 0,
+      'settings' => array(
+        'max' => '',
+        'min' => '',
+        'prefix' => '',
+        'suffix' => '',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'number',
+        'settings' => array(),
+        'type' => 'number',
+        'weight' => '12',
+      ),
+    ),
+  );
+
   // Translatables
   // Included for use with string extractors like potx.
   t('A trait that is intuitively obvious to the casual observer.  Likely to be remembered.');
@@ -1045,12 +1174,14 @@ function ct_npc_field_default_fields() {
   t('Facial Hair Style');
   t('Gender');
   t('Hair Color');
+  t('Height');
   t('Instinct');
   t('Mannerisms');
   t('Motivation');
   t('Profession, adventurer');
   t('Profession, mundane');
   t('Race');
+  t('Weight');
   t('What is it that really gets your character’s motor running?');
   t('What is the character’s first reaction to a threat (physical or otherwise)?');
 
