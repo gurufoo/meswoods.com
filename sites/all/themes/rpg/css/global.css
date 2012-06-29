@@ -17,11 +17,13 @@ body{
 }
 
 h2.pane-title{
-	position:absolute;
-	top:-15px;
-	border-radius: 10px 0px 10px 0px; 
-	-moz-border-radius: 10px 0px 10px 0px ; 
-	-webkit-border-radius: 10px 0px 10px 0px; 
+	/*position:absolute;
+	top:-15px;*/
+  position:relative;
+  top:15px;
+	border-radius: 0px 10px 0px 10px; 
+	-moz-border-radius: 0px 10px 0px 10px ; 
+	-webkit-border-radius: 0px 10px 0px 10px; 
 	border: 1px solid #000000;
 	text-shadow: 2px 2px 5px #000000;
 	color:#F5F5F5;
@@ -38,9 +40,9 @@ h2.pane-title{
   padding:40px 10px 10px 10px;
   background-color:#cccccc;
   box-shadow:2px 2px 5px #000000;
-  border-radius: 10px 0px 10px 0px; 
-  -moz-border-radius: 0px 5px 0px 5px; 
-  -webkit-border-radius: 0px 5px 0px 5px;
+  border-radius: 0px 10px 0px 10px; 
+  -moz-border-radius: 0px 10px 0px 10px; 
+  -webkit-border-radius: 0px 10px 0px 10px;
   margin-bottom:10px;
 	margin-left:10px;
   border:1px solid #000000;
