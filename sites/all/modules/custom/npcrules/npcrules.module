@@ -132,9 +132,85 @@ function computed_field_field_short_description_auto_compute(&$entity_field, $en
   $df = field_get_items('node', $entity, 'field_distinguishing_features');
   $df_display = field_view_value('node', $entity, 'field_distinguishing_features', $df[0]);
   $df_display = strtolower($df_display['#markup']);
+  
+  // Mannerisms
+  $mann = field_get_items('node', $entity, 'field_npc_mannerisms');
+  $mann_display = field_view_value('node', $entity, 'field_npc_mannerisms', $mann[0]);
+  $mann_display = strtolower($mann_display['#markup']);
+  $mann_display = _placeholder_display($mann_display, $entity);
 
-  $format = '%s is a %s %s that %s';
+
+  $format = '<p>%s is a %s %s that %s.</p>';
   $desc =  sprintf($format, $name, $gender, $race_display, $df_display);
+
+  $format = '<p>When interacting with people,  %s. </p>';
+  $desc .= sprintf($format, $mann_display);
+
   //dpm($desc, '$desc');
   $entity_field[0]['value'] = $desc;
+}
+
+
+/**
+* Perform searches and replaces on mannerisms to add in pronouns
+*/
+function _placeholder_display ($content, $node) {
+  //dpm($content, '$mannerisms');
+  //dpm($node, '$node');
+  
+  //Set up the gender pronouna
+  $gender = $node->field_gender['und'][0]['value'];
+  
+  $patterns = array();
+  
+  $replacements = array();
+  
+  # 1 define the regex pattern
+  $name_pattern = '~:name:~';
+  $herhis_pattern = '~:herhis:~';
+  $shehe_pattern = '~:shehe:~';
+  
+  # 2 assign the pattern to the patterns array
+  $patterns[] = $name_pattern;
+  $patterns[] = $herhis_pattern;
+  $patterns[] = $shehe_pattern;
+  
+  # 3 define the replacemnt
+  $name_replacement = $node->title;
+  $herhis_replacement = _gender_format($gender, 'herhis');
+  $shehe_replacement = _gender_format($gender, 'shehe');
+  
+  # 4 assing the replacement to the replacements array
+  $replacements[] = $name_replacement;
+  $replacements[] = $herhis_replacement;
+  $replacements[] = $shehe_replacement;
+
+  $content = preg_replace($patterns, $replacements, $content);
+  return $content;
+}
+
+
+
+function _gender_format($gender, $declension) {
+  switch ($gender) {
+    case 'female':
+      switch ($declension) {
+        case 'herhis':
+          return 'her';
+          break;
+        case 'shehe':
+          return 'she';
+          break;
+      }
+    case 'male':
+      switch ($declension) {
+        case 'herhis':
+          return 'his';
+          break;
+        case 'shehe':
+          return 'he';
+          break;
+      }
+  }
+
 }

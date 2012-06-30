@@ -34,3 +34,21 @@ function _inches_display ($total_inches) {
   return $display;
 }
 
+
+function rpg_field__field_npc_mannerisms($variables, $node = NULL) {
+
+  if (is_array($variables)) {
+    //dpm('Array');
+    $node = $variables['element']['#object'];
+    $mannerisms = $variables['element'][0]['#markup'];
+    //dpm($variables['element']);
+    //dpm($mannerisms, '$mannerisms with array');
+  }else if (!is_array($variables)) {
+    //dpm('Not Array');
+    $mannerisms = $variables;
+  }
+  return _placeholder_display($mannerisms, $node);
+}
+
+
+
