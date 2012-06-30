@@ -6,7 +6,7 @@
 function facial_hair_female_no_hair ($form, &$form_state) {
 //dpm($form_state, '$form_state');
   if ($form_state['values']['field_gender']['und'][0]['value'] == 'female') {
-		_npc_setopt('field_facial_hair_style', 'none', $form, $form_state);
+		_npc_setopt('field_facial_hair_style', '_none', $form, $form_state);
     //form_set_value($form['field_facial_hair_style'], array('und' => array(0 => array('value' => 'none'))), $form_state);
   }
 }
