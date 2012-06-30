@@ -4,5 +4,11 @@
  *  and widescreen CSS files as appropriate. */
 
 body{
-	background-image:url(../images/main_bg-narrow.jpg);
+  background-image:url(../images/main_bg-narrow.jpg);
+  background-repeat:no-repeat;
+  }
+
+h2.pane-title{
+  background-image:url(../images/pane-title-bg-wide.jpg);
 }
+
