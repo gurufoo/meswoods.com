@@ -25,21 +25,29 @@ function _generate_random_name($race, $gender) {
   $filename = $docroot . '/' . $module_path . '/inc/names.csv';
   $file_handle = fopen($filename, "r");
   $names = array();
+  $names_all = array();
   while (!feof($file_handle)) {
     $line = fgets($file_handle);
     //dpm($line, '$line');
     if (trim($line) != '') {
       $namearr = explode(',', trim($line));
-      if ($namearr[1] == $race && $namearr[2] == $gender) {
+      if ($namearr[1] == $race && $namearr[2] == $gender) { // If the current record matches race and gender
         $names[$namearr[0]]['race'] = $namearr[1];
         $names[$namearr[0]]['gender'] = $namearr[2];
+      }else {
+        $names_all[] = $namearr[0];
       }
     }
   }
 
   fclose($file_handle);
-  //dpm($names, '$names');
+  //dpm($names_all, '$names_all');
+  if (count($names) > 0) {
   $option = array_rand($names);
+  }else {
+  $index = array_rand($names_all);
+  $option = $names_all[$index];
+  }
   return $option;
 }
 

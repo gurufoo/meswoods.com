@@ -112,3 +112,29 @@ function _rollpercentile ($chance = 50) {
     return FALSE;
   }
 }
+
+
+/**
+* Generate a short description using the computed_field module.
+*/
+function computed_field_field_short_description_auto_compute(&$entity_field, $entity_type, $entity, $field, $instance, $langcode, $items) {
+  //dpm($field, '$field');
+  //dpm($entity, '$entity');
+
+  $name = $entity->title;
+  $gender = $entity->field_gender['und'][0]['value'];
+  // Race
+  $race = field_get_items('node', $entity, 'field_npc_race');
+  $race_display = field_view_value('node', $entity, 'field_npc_race', $race[0]);
+  $race_display = strtolower($race_display['#markup']);
+
+  // Distinquishing features
+  $df = field_get_items('node', $entity, 'field_distinguishing_features');
+  $df_display = field_view_value('node', $entity, 'field_distinguishing_features', $df[0]);
+  $df_display = strtolower($df_display['#markup']);
+
+  $format = '%s is a %s %s that %s';
+  $desc =  sprintf($format, $name, $gender, $race_display, $df_display);
+  //dpm($desc, '$desc');
+  $entity_field[0]['value'] = $desc;
+}

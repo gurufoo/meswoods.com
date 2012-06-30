@@ -47,3 +47,11 @@ h2.pane-title{
 	margin-left:10px;
   border:1px solid #000000;
 }
+
+.views-label{
+  font-weight:bold;
+}
+.field-description{
+  font-size:85%;
+  margin-left:15px;
+}
