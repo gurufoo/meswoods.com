@@ -68,10 +68,10 @@ function ct_npc_strongarm() {
     'extra_fields' => array(
       'form' => array(
         'title' => array(
-          'weight' => '0',
+          'weight' => '19',
         ),
         'path' => array(
-          'weight' => '4',
+          'weight' => '5',
         ),
       ),
       'display' => array(),
