@@ -12,6 +12,10 @@ function npcrules_form_npc_node_form_alter (&$form, &$form_state, $form_id) {
       // the $fields_to_select_all array.
       $fields_to_select_all = _get_random_npc_fields();
       foreach ($fields_to_select_all as $field) {
+      dpm($form[$field]['und'], '$field');
+       $form[$field]['und']['#title'] .= ' <span class="deselectall">(Deselect all</span>';
+       $form[$field]['und']['#title'] .= ' <span class="selectall">Select all)</span>';
+      
         foreach ($form[$field]['und']['#options'] as $key => $value) {
           $selected_options[] = $key;
         }
@@ -19,7 +23,6 @@ function npcrules_form_npc_node_form_alter (&$form, &$form_state, $form_id) {
     }
 		// Make the title unrequired, because we'll generate a random one if it's empty
 		$form['title']['#required'] = FALSE;
-		//$form['title']['#type'] = 'value';
 		$form['title']['#default_value'] = 'Choose a random name for me';
     // Add a validate handler to randomly select from all the fields selected
     $form['#validate'][] = 'npc_select_random_options_all'; // Select random values for all the multiselect fields
@@ -43,7 +46,8 @@ module_load_include('inc', 'npcrules', 'inc/height.rules');
  */
 function npc_select_random_options_all ($form, &$form_state) {
   $fields = _get_random_npc_fields();
-  foreach ($fields as $field) {
+  foreach ($fields as $field) { // $field = one of the form elements that should be chosen randomly
+    // $random = all the selected items from the form element
     $random = array_rand($form_state['values'][$field]['und']);
     $value = $form_state['values'][$field]['und'][$random]['value'];
 		_npc_setopt($field, $value, $form, $form_state);

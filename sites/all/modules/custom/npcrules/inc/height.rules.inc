@@ -46,10 +46,10 @@ function _generate_random_height($race, $df) {
   //dpm($height_range, '$height_range');
   $min = $height_range['min_normal'];
   $max = $height_range['max_normal'];
-  if ($df == 'is_exceptionally_short') {
+  if ($df == 73) { // Exceptionally Short
     $min = $height_range['min_short'];
     $max = $height_range['min_normal'] - 1;
-  }else if ($df == 'is_exceptionally_tall') {
+  }else if ($df == 74) { // Exceptionally Tall
     $min = $height_range['max_normal'] + 1;
     $max = $height_range['max_tall'];
   }
