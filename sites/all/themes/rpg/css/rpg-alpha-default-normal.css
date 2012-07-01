@@ -7,3 +7,8 @@ body{
 	background-repeat:no-repeat;
 }
 
+.fieldset-wrapper .form-item{
+  width:310px;
+  float:left;
+}
+

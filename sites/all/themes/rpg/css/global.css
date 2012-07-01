@@ -17,8 +17,6 @@ body{
 }
 
 h2.pane-title{
-	/*position:absolute;
-	top:-15px;*/
   position:relative;
   top:15px;
 	border-radius: 0px 10px 0px 10px; 
@@ -55,3 +53,4 @@ h2.pane-title{
   font-size:85%;
   margin-left:15px;
 }
+
