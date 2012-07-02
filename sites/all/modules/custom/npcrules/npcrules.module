@@ -3,7 +3,7 @@
 function npcrules_form_npc_node_form_alter (&$form, &$form_state, $form_id) {
   //dpm($form_id, '$form_id');
   //dpm($form_state, '$form_state');
-  //dpm($form, '$form');
+  dpm($form, '$form');
   
   if (isset($form_state['build_info']['args'][0]->nid)) {
     //dpm('nid exists, we are on an existing npc');
@@ -12,7 +12,6 @@ function npcrules_form_npc_node_form_alter (&$form, &$form_state, $form_id) {
       // the $fields_to_select_all array.
       $fields_to_select_all = _get_random_npc_fields();
       foreach ($fields_to_select_all as $field) {
-      dpm($form[$field]['und'], '$field');
        $form[$field]['und']['#title'] .= ' <span class="deselectall">(Deselect all</span>';
        $form[$field]['und']['#title'] .= ' <span class="selectall">Select all)</span>';
       
@@ -65,6 +64,7 @@ function _get_random_npc_fields () {
   return array(
         'field_facial_hair_style',
         'field_hair_color',
+        'field_hair_style',
         'field_gender',
         'field_npc_race',
         'field_npc_mannerisms',
@@ -142,10 +142,20 @@ function computed_field_field_short_description_auto_compute(&$entity_field, $en
   $mann_display = field_view_value('node', $entity, 'field_npc_mannerisms', $mann[0]);
   $mann_display = strtolower($mann_display['#markup']);
   $mann_display = _placeholder_display($mann_display, $entity);
+  
+   // Hair style 
+  $hs = field_get_items('node', $entity, 'field_hair_style');
+  $hs_display = field_view_value('node', $entity, 'field_hair_style', $hs[0]);
+  $hs_display = strtolower($hs_display['#markup']);
+  $hs_display = _placeholder_display($hs_display, $entity);
 
 
-  $format = '<p>%s is a %s %s that %s.</p>';
+  $format = '<p>%s is a %s %s that %s. ';
   $desc =  sprintf($format, $name, $gender, $race_display, $df_display);
+
+  $format = '%s has _____ %s hair and ______ skin';
+  $desc .= sprintf($format, ucfirst(_gender_format($gender, 'shehe')), $hs_display);
+
 
   $format = '<p>When interacting with people,  %s. </p>';
   $desc .= sprintf($format, $mann_display);
