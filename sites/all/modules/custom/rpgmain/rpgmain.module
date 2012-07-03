@@ -1,0 +1,39 @@
+<?php
+
+function rpgmain_menu () {
+$items = array();
+
+$items['admin/rpg/create/%/%'] = array(
+  'title' => 'Create nodes',
+  'page callback' => 'rpgmain_rpg_createnodes',
+  'page arguments' => array(3, 4),
+  'access arguments' => array('access content'),
+  'type' => MENU_CALLBACK,
+);
+
+return $items;
+
+}
+
+
+function rpgmain_rpg_createnodes ($nodetype, $numnodes = 1) {
+  dpm($nodetype);
+  dpm($numnodes);
+
+  $newnode = new stdClass();
+  $newnode->type = $nodetype;
+  $newnode->title = 'Choose a random name for me';
+  $newnode->language = LANGUAGE_NONE;
+
+  $newnode->field_distinguishing_features[$newnode->language][0]['value'] = 84;
+
+  dpm($newnode, '$newnode before prepare');
+  node_object_prepare($newnode);
+  dpm($newnode, '$newnode after prepare');
+  $node = node_submit($newnode);
+  node_save($node);
+  dpm($node, '$node after save');
+  return 'bobo';
+}
+
+

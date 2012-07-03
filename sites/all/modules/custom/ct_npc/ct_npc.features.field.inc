@@ -244,7 +244,7 @@ function ct_npc_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '34',
+        'weight' => '32',
       ),
     ),
   );
@@ -415,7 +415,7 @@ function ct_npc_field_default_fields() {
       'settings' => array(
         'allowed_values' => array(
           377 => 'Blonde',
-          378 => 'Blacksmith',
+          378 => 'Black',
           379 => 'Brown',
           380 => 'Red',
           381 => 'White',
@@ -449,7 +449,7 @@ function ct_npc_field_default_fields() {
       'entity_type' => 'node',
       'field_name' => 'field_hair_color',
       'label' => 'Hair Color',
-      'required' => 0,
+      'required' => 1,
       'settings' => array(
         'user_register_form' => FALSE,
       ),
@@ -687,7 +687,7 @@ function ct_npc_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '8',
+        'weight' => '40',
       ),
     ),
   );
@@ -783,7 +783,80 @@ function ct_npc_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '7',
+        'weight' => '39',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-npc-field_npc_approach'.
+  $fields['node-npc-field_npc_approach'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_npc_approach',
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'list',
+      'settings' => array(
+        'allowed_values' => array(
+          1 => 'Brave Warrior',
+          2 => 'Brilliant Rebel',
+          3 => 'Devoted Craftsman',
+          4 => 'Disciplined Commander',
+          5 => 'Ethereal Mystic',
+          6 => 'Fair Judge',
+          7 => 'Intense Loner',
+          8 => 'Nurturing Healer',
+          9 => 'Proud Noble',
+          10 => 'Speedy Trickster',
+          11 => 'Stalwart Defender',
+          12 => 'Thoughtful Explorer',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'translatable' => '0',
+      'type' => 'list_text',
+    ),
+    'field_instance' => array(
+      'bundle' => 'npc',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'What archetype is this character best known for being? ',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'list',
+          'settings' => array(),
+          'type' => 'list_default',
+          'weight' => 16,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_npc_approach',
+      'label' => 'Approach',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_buttons',
+        'weight' => '39',
       ),
     ),
   );
@@ -927,7 +1000,7 @@ function ct_npc_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '6',
+        'weight' => '38',
       ),
     ),
   );
@@ -1259,6 +1332,75 @@ function ct_npc_field_default_fields() {
     ),
   );
 
+  // Exported field: 'node-npc-field_skin_color'.
+  $fields['node-npc-field_skin_color'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_skin_color',
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'list',
+      'settings' => array(
+        'allowed_values' => array(
+          383 => 'Pale',
+          384 => 'Yellow',
+          385 => 'Brown',
+          386 => 'Black',
+          387 => 'White',
+          388 => 'Red',
+          389 => 'Olive',
+          390 => 'Dark Tan',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'translatable' => '0',
+      'type' => 'list_text',
+    ),
+    'field_instance' => array(
+      'bundle' => 'npc',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'list',
+          'settings' => array(),
+          'type' => 'list_default',
+          'weight' => 15,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_skin_color',
+      'label' => 'Skin color',
+      'required' => 1,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_buttons',
+        'weight' => '33',
+      ),
+    ),
+  );
+
   // Exported field: 'node-npc-field_weight'.
   $fields['node-npc-field_weight'] = array(
     'field_config' => array(
@@ -1325,6 +1467,7 @@ function ct_npc_field_default_fields() {
   // Included for use with string extractors like potx.
   t('A trait that is intuitively obvious to the casual observer.  Likely to be remembered.');
   t('Alignment');
+  t('Approach');
   t('Distinguishing Features');
   t('Facial Hair Style');
   t('Gender');
@@ -1338,7 +1481,9 @@ function ct_npc_field_default_fields() {
   t('Profession, mundane');
   t('Race');
   t('Short Description Auto');
+  t('Skin color');
   t('Weight');
+  t('What archetype is this character best known for being? ');
   t('What is it that really gets your character’s motor running?');
   t('What is the character’s first reaction to a threat (physical or otherwise)?');
 
