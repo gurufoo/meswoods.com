@@ -5,11 +5,11 @@ body{
 }
 
 #zone-content{
-	background-color:rgba(255,255,255,0.5);	
+	background-color:rgba(255,255,255,0.8);	
+  box-shadow: 0px 0px 10px 10px rgba(255,255,255,0.8);
 	border-radius: 5px 5px 5px 5px; 
 	-moz-border-radius: 5px 5px 5px 5px; 
 	-webkit-border-radius: 5px 5px 5px 5px;
-  box-shadow: 0px 0px 10px 10px rgba(255,255,255,0.5);
 }
 
 .panel-panel{
@@ -53,4 +53,12 @@ h2.pane-title{
   font-size:85%;
   margin-left:15px;
 }
-
+.deselectall,
+.selectall{
+  font-size:85%;
+  color:#0062A0;
+  text-decoration:underline;
+  display:block;
+  cursor:pointer;
+  font-weight:normal;
+}
