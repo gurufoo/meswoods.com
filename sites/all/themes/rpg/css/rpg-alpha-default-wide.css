@@ -1,1 +1,18 @@
 /* This file will hold styles that are loaded using the same media query as the wide grid. */
+body{
+	background-image:url(../images/main_bg-wide.jpg);
+  background-repeat:no-repeat;
+}
+
+.container-12 .grid-12 .panel-pane h2.pane-title{
+	width:1150px;
+}
+
+.container-12 .grid-4 .panel-pane h2.pane-title{
+	width:348px;
+}
+
+.container-12 .grid-4 .panel-pane .pane-content{
+	width:348px;
+}
+

@@ -2,3 +2,25 @@
 /* If you are using the default media queries provided by Omega, these styles will also
  *  apply to the normal and widescreen layouts. You may override these styles in the normal 
  *  and widescreen CSS files as appropriate. */
+
+body{
+  background-image:url(../images/main_bg-narrow.jpg);
+  background-repeat:no-repeat;
+  }
+
+h2.pane-title{
+  background-image:url(../images/pane-title-bg-wide.jpg);
+}
+
+
+.fieldset-wrapper .form-item{
+width:230px;
+float:left;
+}
+
+/* Leave the name (title) full witdh */
+.fieldset-wrapper .form-item.form-item-title{
+width:100%;
+float:none;
+}
+/

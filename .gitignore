@@ -3,4 +3,4 @@ sites/default/settings.php
 *.tar.gz
 *.tar
 sites/default/files
-
+*.swp

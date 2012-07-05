@@ -1,0 +1,6 @@
+name = "RPG Main module"
+description = "Provides primary functionality for the RPG site."
+package = "RPG RULES"
+core = "7.x"
+
+files[] = rpgmain.module

@@ -1,45 +1,55 @@
 <?php
-
+/**
+* This specifically affets the NPC content type creation form
+*/
 function npcrules_form_npc_node_form_alter (&$form, &$form_state, $form_id) {
   //dpm($form_id, '$form_id');
   //dpm($form_state, '$form_state');
   //dpm($form, '$form');
-  
+
   if (isset($form_state['build_info']['args'][0]->nid)) {
     //dpm('nid exists, we are on an existing npc');
   } else {  //no nid, this is a new npc do awesome stuff here
-      // First things first, pre-select all values on all of the fields listed in
-      // the $fields_to_select_all array.
-      $fields_to_select_all = _get_random_npc_fields();
-      foreach ($fields_to_select_all as $field) {
-        foreach ($form[$field]['und']['#options'] as $key => $value) {
-          $selected_options[] = $key;
-        }
-      $form[$field]['und']['#default_value'] = $selected_options;
+    // First things first, pre-select all values on all of the fields listed in
+    // the $fields_to_select_all array.
+    $fields_to_select_all = _get_random_npc_fields();
+    foreach ($fields_to_select_all as $field) {
+      //$form[$field]['und']['#title'] .= ' <span class="deselectall">(Deselect all</span>';
+      //$form[$field]['und']['#title'] .= ' <span class="selectall">Select all)</span>';
+
     }
+    // Make the title unrequired, because we'll generate a random one if it's empty
+    $form['title']['#required'] = FALSE;
+    $form['title']['#default_value'] = 'Choose a random name for me';
+
+
     // Add a validate handler to randomly select from all the fields selected
     $form['#validate'][] = 'npc_select_random_options_all'; // Select random values for all the multiselect fields
     $form['#validate'][] = 'facial_hair_female_no_hair'; // Females don't have facial  hair
     $form['#validate'][] = 'facial_hair_male_dwarf_likely'; // Male Dwarves are likely to have facial hair
+    $form['#validate'][] = 'profession_adventurer_unlikely'; // NPCs aren't likely to have adventuring professions
+    $form['#validate'][] = 'generate_npc_height'; // Generate an NPCs height
+    $form['#validate'][] = 'generate_npc_name'; // Generate a name
   }
 }
-/**
- * Facial hair rules.  And these are the criteria and responses governing
- * facial hair ;^)
- */
-module_load_include('inc', 'npcrules', 'inc/facial_hair.rules');
 
+/**
+* Load the various rules files
+*/
+module_load_include('inc', 'npcrules', 'inc/facial_hair.rules');
+module_load_include('inc', 'npcrules', 'inc/name.rules');
+module_load_include('inc', 'npcrules', 'inc/profession_adventurer.rules');
+module_load_include('inc', 'npcrules', 'inc/height.rules');
 /**
  * Select random values for all the multiselect fields
  */
 function npc_select_random_options_all ($form, &$form_state) {
   $fields = _get_random_npc_fields();
-  foreach ($fields as $field) {
+  foreach ($fields as $field) { // $field = one of the form elements that should be chosen randomly
+    // $random = all the selected items from the form element
     $random = array_rand($form_state['values'][$field]['und']);
     $value = $form_state['values'][$field]['und'][$random]['value'];
-    //dpm($field, '$field');
-    //dpm($value, '$value');
-    form_set_value($form[$field], array('und' => array(0 => array('value' => $value))), $form_state);
+		_npc_setopt($field, $value, $form, $form_state);
   }
 }
 
@@ -54,17 +64,24 @@ function _get_random_npc_fields () {
   return array(
         'field_facial_hair_style',
         'field_hair_color',
+        'field_hair_style',
         'field_gender',
         'field_npc_race',
+        'field_skin_color',
         'field_npc_mannerisms',
         'field_distinguishing_features',
-        'field_motivation');
+        'field_motivation',
+				'field_instinct',
+        'field_npc_approach',
+				'field_profession_mundane',
+				'field_profession_adventurer',
+        'field_alignment');
 }
 
 /**
  * Retrieves a list of options from a form element.  Typically this is used
  * to get all the options in order to select a random option.
- 
+ *
  * @param array $form A Drupal FAPI form array
  * @param string $field The machine name for an element
  *
@@ -74,6 +91,17 @@ function _getopts ($form, $field) {
   return $form[$field]['und']['#options'];
 }
 
+/**
+* Set a single value in a form element. Helper function.
+*
+* @param string $field The machine name of the field to set
+* @param string $option The storage value (key) of the value being set
+* @param array $form The form array  form_set_value() requires this.
+* @param array $form_state The form state array. form_set_value() requires this.
+*/
+function _npc_setopt ($field, $option, $form, &$form_state) {
+	form_set_value($form[$field], array('und' => array(0 => array('value' => $option))), $form_state);
+}
 
 /**
  * Roll percentile dice and determine the result
@@ -89,4 +117,123 @@ function _rollpercentile ($chance = 50) {
   }else {
     return FALSE;
   }
+}
+
+
+/**
+* Generate a short description using the computed_field module.
+*/
+function computed_field_field_short_description_auto_compute(&$entity_field, $entity_type, $entity, $field, $instance, $langcode, $items) {
+  //dpm($field, '$field');
+  //dpm($entity, '$entity');
+
+  $fields = _get_random_npc_fields();
+  $values = array();
+  foreach ($fields as $field) {
+    //dpm($field, '$field');
+    $var = field_get_items('node', $entity, $field);
+    //dpm($field, '$field');
+    //dpm($var, '$var');
+    $value_display = field_view_value('node', $entity, $field, $var[0]);
+    $value_display = strtolower($value_display['#markup']);
+    //dpm($value_display, '$value');
+    $values[$field] = $value_display;
+
+  }
+  //dpm($values, '$values');
+
+  $name = $entity->title;
+  $gender = $values['field_gender'];
+  // Race
+  $race = $values['field_npc_race'];
+  // Distinquishing features
+  $df = $values['field_distinguishing_features'];
+  // Mannerisms
+  $mann = _placeholder_display($values['field_npc_mannerisms'], $entity);
+  // Hair style 
+  $hs = _placeholder_display($values['field_hair_style'], $entity);
+  // Hair color
+  $hc = $values['field_hair_color'];
+  // Skin color
+  $sc = $values['field_skin_color'];
+
+
+  // Physical desciption
+  $format = '<p>%s is a <strong>%s</strong> <strong>%s</strong> that <strong>%s</strong>. ';
+  $desc =  sprintf($format, ucfirst($name), $gender, $race, $df);
+
+  $format = '%s has %s, %s hair and %s skin.</p>';
+  $desc .= sprintf($format, ucfirst(_gender_format($gender, 'shehe')), $hc, $hs, $sc);
+
+
+  $format = '<p>When interacting with people,  %s. </p>';
+  $desc .= sprintf($format, $mann);
+
+  //dpm($desc, '$desc');
+  $entity_field[0]['value'] = $desc;
+}
+
+
+/**
+* Perform searches and replaces on mannerisms to add in pronouns
+*/
+function _placeholder_display ($content, $node) {
+  //dpm($content, '$mannerisms');
+  //dpm($node, '$node');
+  
+  //Set up the gender pronouna
+  $gender = $node->field_gender['und'][0]['value'];
+  
+  $patterns = array();
+  
+  $replacements = array();
+  
+  # 1 define the regex pattern
+  $name_pattern = '~:name:~';
+  $herhis_pattern = '~:herhis:~';
+  $shehe_pattern = '~:shehe:~';
+  
+  # 2 assign the pattern to the patterns array
+  $patterns[] = $name_pattern;
+  $patterns[] = $herhis_pattern;
+  $patterns[] = $shehe_pattern;
+  
+  # 3 define the replacemnt
+  $name_replacement = $node->title;
+  $herhis_replacement = _gender_format($gender, 'herhis');
+  $shehe_replacement = _gender_format($gender, 'shehe');
+  
+  # 4 assing the replacement to the replacements array
+  $replacements[] = $name_replacement;
+  $replacements[] = $herhis_replacement;
+  $replacements[] = $shehe_replacement;
+
+  $content = preg_replace($patterns, $replacements, $content);
+  return $content;
+}
+
+
+
+function _gender_format($gender, $declension) {
+  switch ($gender) {
+    case 'female':
+      switch ($declension) {
+        case 'herhis':
+          return 'her';
+          break;
+        case 'shehe':
+          return 'she';
+          break;
+      }
+    case 'male':
+      switch ($declension) {
+        case 'herhis':
+          return 'his';
+          break;
+        case 'shehe':
+          return 'he';
+          break;
+      }
+  }
+
 }
