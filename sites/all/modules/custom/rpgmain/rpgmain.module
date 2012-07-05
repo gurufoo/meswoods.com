@@ -36,4 +36,36 @@ function rpgmain_rpg_createnodes ($nodetype, $numnodes = 1) {
   return 'bobo';
 }
 
+/**
+* The main form_alter that will alter node forms in common ways
+*/
+function rpgmain_form_node_form_alter (&$form, &$form_state) {
+  // Get all of the form elements to be randomized from the module that controls this content type.
+  // After getting the elements to be randomized, pre-select all options for that element
+  // Name the function _get_random_[node_type_machine_name]_fields.
+  $type = $form['type']['#value'];
+  $module = $type . 'rules';
+  //dpm($module, '$module');
+  $all_fields = field_info_fields($type); // Get all fields on this node type (random or not)
+  // get them element types
+  if (module_exists($module)) {
+    $function = '_get_random_' . $type . '_fields';
+    if (function_exists($function)) {
+      $randomized_fields = $function();
+      // Set them default values (all values are selected by default)
+      foreach ($randomized_fields as $key => $field) {
+        // Add the UX select all / deselect all options
+        $form[$field]['und']['#title'] .= ' <span class="deselectall">(Deselect all</span>';
+        $form[$field]['und']['#title'] .= ' <span class="selectall">Select all)</span>';
+        
+        $options = list_allowed_values($all_fields[$field]);
+        $defaults = array();
+        foreach ($options as $key => $option) {
+          $defaults[] = $key;
+        }
+        $form[$field]['und']['#default_value'] = $defaults;
 
+      }
+    }
+  }
+}
