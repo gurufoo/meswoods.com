@@ -1,0 +1,96 @@
+<?php
+/**
+* This specifically affets the NPC content type creation form
+*/
+function locationrules_form_location_node_form_alter (&$form, &$form_state, $form_id) {
+  //dpm($form_id, '$form_id');
+  //dpm($form_state, '$form_state');
+  //dpm($form, '$form');
+
+  if (isset($form_state['build_info']['args'][0]->nid)) {
+    //dpm('nid exists, we are on an existing npc');
+  } else {  //no nid, this is a new npc do awesome stuff here
+    // First things first, pre-select all values on all of the fields listed in
+    // the $fields_to_select_all array.
+    // Make the title unrequired, because we'll generate a random one if it's empty
+    $form['title']['#required'] = FALSE;
+    $form['title']['#default_value'] = 'Choose a random name for me';
+  }
+}
+
+/**
+* Load the various rules files
+*/
+// module_load_include('inc', 'locationrules', 'inc/[something].rules');
+
+
+
+
+/**
+ * Retrieves a list of elements (fields). Often this is used to operate on all
+ * the fields that will have random values.
+ *
+ * @return array An array of elements (fields).
+ */
+function _get_random_location_fields () {
+  return array(
+        'field_location_type');
+}
+
+
+/**
+* Generate a short description using the computed_field module.
+
+function computed_field_field_short_description_auto_compute(&$entity_field, $entity_type, $entity, $field, $instance, $langcode, $items) {
+  //dpm($field, '$field');
+  //dpm($entity, '$entity');
+
+  $fields = _get_random_npc_fields();
+  $values = array();
+  foreach ($fields as $field) {
+    //dpm($field, '$field');
+    $var = field_get_items('node', $entity, $field);
+    //dpm($field, '$field');
+    //dpm($var, '$var');
+    $value_display = field_view_value('node', $entity, $field, $var[0]);
+    $value_display = strtolower($value_display['#markup']);
+    //dpm($value_display, '$value');
+    $values[$field] = $value_display;
+
+  }
+  //dpm($values, '$values');
+
+  $name = $entity->title;
+  $gender = $values['field_gender'];
+  // Race
+  $race = $values['field_npc_race'];
+  // Distinquishing features
+  $df = $values['field_distinguishing_features'];
+  // Mannerisms
+  $mann = _placeholder_display($values['field_npc_mannerisms'], $entity);
+  // Hair style 
+  $hs = _placeholder_display($values['field_hair_style'], $entity);
+  // Hair color
+  $hc = $values['field_hair_color'];
+  // Skin color
+  $sc = $values['field_skin_color'];
+
+
+  // Physical desciption
+  $format = '<p>%s is a <strong>%s</strong> <strong>%s</strong> that <strong>%s</strong>. ';
+  $desc =  sprintf($format, ucfirst($name), $gender, $race, $df);
+
+  $format = '%s has %s, %s hair and %s skin.</p>';
+  $desc .= sprintf($format, ucfirst(_gender_format($gender, 'shehe')), $hc, $hs, $sc);
+
+
+  $format = '<p>When interacting with people,  %s. </p>';
+  $desc .= sprintf($format, $mann);
+
+  //dpm($desc, '$desc');
+  $entity_field[0]['value'] = $desc;
+}
+*/
+
+
+

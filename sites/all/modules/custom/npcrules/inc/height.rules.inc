@@ -11,7 +11,7 @@ function generate_npc_height ($form, &$form_state) {
     $npc_height = $height;
   }
   //dpm($npc_height, '$npc_height');
-  _npc_setopt('field_height', $npc_height, $form, $form_state);
+  _setopt('field_height', $npc_height, $form, $form_state);
 }
 
 // Generate the random height
