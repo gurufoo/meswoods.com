@@ -1,0 +1,6 @@
+name = "Location Rules"
+description = "Provides overrides for the Location content type."
+package = "RPG RULES"
+core = "7.x"
+
+files[] = locationrules.module
