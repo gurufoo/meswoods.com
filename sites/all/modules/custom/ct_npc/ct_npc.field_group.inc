@@ -21,7 +21,7 @@ function ct_npc_field_group_info() {
   $field_group->parent_name = 'group_npc_general';
   $field_group->data = array(
     'label' => 'Basics',
-    'weight' => '23',
+    'weight' => '20',
     'children' => array(
       0 => 'field_gender',
       1 => 'field_npc_race',
@@ -198,10 +198,9 @@ function ct_npc_field_group_info() {
   $field_group->parent_name = 'group_npc_general';
   $field_group->data = array(
     'label' => 'Profession',
-    'weight' => '24',
+    'weight' => '21',
     'children' => array(
-      0 => 'field_profession_mundane',
-      1 => 'field_profession_adventurer',
+      0 => 'field_profession',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

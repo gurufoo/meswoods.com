@@ -1,17 +1,31 @@
 <?php
 
-function profession_adventurer_unlikely ($form, &$form_state) {	
-				if (_rollpercentile(15)) { // 15% chance that an npc has an adventuring profession
-								// Get the list of adventurer professions
-								$profession_adventurer_options = _getopts($form, 'field_profession_adventurer');
-								// don't let "None" be an option
-								unset($profession_adventurer_options['_none']);
-								// Choose an adventuring profession
-								$option = array_rand($profession_adventurer_options);
-								_setopt('field_profession_adventurer', $option, $form, $form_state);
-								// Adventureers don't have time for mundane professions...
-								_setopt('field_profession_mundane', '_none', $form, $form_state);
-				}	else { // Nope, not the adventuring sort, just a mundane profession
-								_setopt('field_profession_adventurer', '_none', $form, $form_state);
-				}
+function profession_adventurer_unlikely ($form, &$form_state) {
+  // Get the list of professions
+  $profession_options = $form_state['values']['field_profession'];
+  dpm($profession_options, '$profession_options');
+  foreach ($profession_options['und'] as $option) {
+    dpm($option['value'], '$option');
+  }
+  $options = array();
+  $adventurer_professions = array(
+      399 => 399, 
+      398 => 398,
+      395 => 395, 
+      397 => 397, 
+      396 => 396);
+  $mundane_professions = $profession_options;
+  foreach ($adventurer_professions as $key => $profession) {
+    unset($mundane_professions[$key]);
+  }
+
+  if (_rollpercentile(15)) { // 15% chance that an npc has an adventuring profession
+    dpm($adventurer_professions, 'We will be an adventurer');
+    $profession = array_rand($adventurer_professions);
+  }	else { // Nope, not the adventuring sort, just a mundane profession
+    dpm($mundane_professions, 'Not an adventurer');
+    $profession = array_rand($mundane_professions);
+  }
+  dpm($profession, '$profession');
+  _setopt('field_profession', $profession, $form, $form_state);
 }

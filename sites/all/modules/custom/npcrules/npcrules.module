@@ -17,7 +17,7 @@ function npcrules_form_npc_node_form_alter (&$form, &$form_state, $form_id) {
 
     $form['#validate'][] = 'facial_hair_female_no_hair'; // Females don't have facial  hair
     $form['#validate'][] = 'facial_hair_male_dwarf_likely'; // Male Dwarves are likely to have facial hair
-    $form['#validate'][] = 'profession_adventurer_unlikely'; // NPCs aren't likely to have adventuring professions
+    //$form['#validate'][] = 'profession_adventurer_unlikely'; // NPCs aren't likely to have adventuring professions
     $form['#validate'][] = 'generate_npc_height'; // Generate an NPCs height
     $form['#validate'][] = 'generate_npc_name'; // Generate a name
   }
@@ -28,7 +28,7 @@ function npcrules_form_npc_node_form_alter (&$form, &$form_state, $form_id) {
 */
 module_load_include('inc', 'npcrules', 'inc/facial_hair.rules');
 module_load_include('inc', 'npcrules', 'inc/name.rules');
-module_load_include('inc', 'npcrules', 'inc/profession_adventurer.rules');
+//module_load_include('inc', 'npcrules', 'inc/profession_adventurer.rules');
 module_load_include('inc', 'npcrules', 'inc/height.rules');
 
 /**
@@ -64,8 +64,7 @@ function _get_random_npc_fields () {
         'field_motivation',
 				'field_instinct',
         'field_npc_approach',
-				'field_profession_mundane',
-				'field_profession_adventurer',
+				'field_profession',
         'field_alignment');
 }
 

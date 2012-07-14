@@ -59,7 +59,7 @@ function rpgmain_form_node_form_alter (&$form, &$form_state) {
     foreach ($randomized_fields as $key => $field) {
       // Add the UX select all / deselect all options
       $form[$field]['und']['#title'] .= ' <span class="deselectall">(Deselect all</span>';
-          $form[$field]['und']['#title'] .= ' <span class="selectall">Select all)</span>';
+      $form[$field]['und']['#title'] .= ' <span class="selectall">Select all)</span>';
 
       $options = list_allowed_values($all_fields[$field]);
       $defaults = array();

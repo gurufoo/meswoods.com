@@ -1072,79 +1072,14 @@ function ct_npc_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-npc-field_profession_adventurer'.
-  $fields['node-npc-field_profession_adventurer'] = array(
+  // Exported field: 'node-npc-field_profession'.
+  $fields['node-npc-field_profession'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '-1',
       'deleted' => '0',
       'entity_types' => array(),
-      'field_name' => 'field_profession_adventurer',
-      'foreign keys' => array(),
-      'indexes' => array(
-        'value' => array(
-          0 => 'value',
-        ),
-      ),
-      'locked' => '0',
-      'module' => 'list',
-      'settings' => array(
-        'allowed_values' => array(
-          'fighter' => 'Fighter',
-          'cleric' => 'Cleric',
-          'wizard' => 'Wizard',
-          'rogue' => 'Rogue',
-        ),
-        'allowed_values_function' => '',
-      ),
-      'translatable' => '0',
-      'type' => 'list_text',
-    ),
-    'field_instance' => array(
-      'bundle' => 'npc',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'default' => array(
-          'label' => 'above',
-          'module' => 'list',
-          'settings' => array(),
-          'type' => 'list_default',
-          'weight' => 9,
-        ),
-        'teaser' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
-        ),
-      ),
-      'entity_type' => 'node',
-      'field_name' => 'field_profession_adventurer',
-      'label' => 'Profession, adventurer',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 1,
-        'module' => 'options',
-        'settings' => array(),
-        'type' => 'options_buttons',
-        'weight' => '25',
-      ),
-    ),
-  );
-
-  // Exported field: 'node-npc-field_profession_mundane'.
-  $fields['node-npc-field_profession_mundane'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '-1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_profession_mundane',
+      'field_name' => 'field_profession',
       'foreign keys' => array(),
       'indexes' => array(
         'value' => array(
@@ -1156,6 +1091,11 @@ function ct_npc_field_default_fields() {
       'settings' => array(
         'allowed_values' => array(
           299 => 'Actor',
+          399 => 'Adventurer - Bard',
+          398 => 'Adventurer - Cleric',
+          395 => 'Adventurer - Fighter',
+          397 => 'Adventurer - Rogue',
+          396 => 'Adventurer - Wizard',
           300 => 'Alchemist',
           301 => 'Apothecary',
           302 => 'Architect',
@@ -1169,7 +1109,7 @@ function ct_npc_field_default_fields() {
           310 => 'Burglar',
           311 => 'Butcher',
           312 => 'Calligrapher',
-          313 => 'Capitain of the Guard',
+          313 => 'Capitan of the Guard',
           314 => 'Carpenter',
           315 => 'Cartographer',
           316 => 'Charlatan',
@@ -1241,7 +1181,7 @@ function ct_npc_field_default_fields() {
           'module' => 'list',
           'settings' => array(),
           'type' => 'list_default',
-          'weight' => 8,
+          'weight' => 17,
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1251,9 +1191,9 @@ function ct_npc_field_default_fields() {
         ),
       ),
       'entity_type' => 'node',
-      'field_name' => 'field_profession_mundane',
-      'label' => 'Profession, mundane',
-      'required' => 0,
+      'field_name' => 'field_profession',
+      'label' => 'Profession',
+      'required' => 1,
       'settings' => array(
         'user_register_form' => FALSE,
       ),
@@ -1262,7 +1202,7 @@ function ct_npc_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '24',
+        'weight' => '22',
       ),
     ),
   );
@@ -1477,8 +1417,7 @@ function ct_npc_field_default_fields() {
   t('Instinct');
   t('Mannerisms');
   t('Motivation');
-  t('Profession, adventurer');
-  t('Profession, mundane');
+  t('Profession');
   t('Race');
   t('Short Description Auto');
   t('Skin color');
