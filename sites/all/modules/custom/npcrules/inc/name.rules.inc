@@ -1,6 +1,7 @@
 <?php
 
 function generate_npc_name ($form, &$form_state) {
+  dpm('begin generate_npc_name()');
   //dpm($form_state['values'], 'values in ()');
   if (
       $form_state['values']['title'] == 'Choose a random name for me'
@@ -9,7 +10,10 @@ function generate_npc_name ($form, &$form_state) {
      ) {
     $race = $form_state['values']['field_npc_race']['und'][0]['value'];
     $gender = $form_state['values']['field_gender']['und'][0]['value'];
+    dpm($race, '$race in generate_npc_name()');
+    dpm($gender, '$gender in generate_npc_name()');
     $npc_name = _generate_random_name($race, $gender, $form, $form_state);
+    dpm($npc_name, '$npc_name');
   }else {
     $npc_name = $form_state['values']['title'];
   }
@@ -17,8 +21,8 @@ function generate_npc_name ($form, &$form_state) {
 }
 
 function _generate_random_name($race, $gender) {
-  //dpm($race, '$race in _generate_random_name()');
-  //dpm($gender, '$gender in _generate_random_name()');
+  dpm($race, '$race in _generate_random_name()');
+  dpm($gender, '$gender in _generate_random_name()');
   //$filename = $GLOBALS['_SERVER']['DOCUMENT_ROOT'] . drupal_get_path('module', 'npcrules') . '/inc/names.csv';
   $docroot = $GLOBALS['_SERVER']['DOCUMENT_ROOT'];
   $module_path = drupal_get_path('module', 'npcrules');
