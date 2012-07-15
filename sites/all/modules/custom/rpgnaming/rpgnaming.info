@@ -1,0 +1,6 @@
+name = "RPG Naming module"
+description = "Provides randomized names for all sorts of elements"
+package = "RPG RULES"
+core = "7.x"
+
+files[] = rpgnaming.module

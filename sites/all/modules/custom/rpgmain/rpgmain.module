@@ -52,8 +52,9 @@ function rpgmain_form_node_form_alter (&$form, &$form_state) {
   if (module_exists($module)) {
 
     // Add a validate handler to randomly select from all the fields selected
-    $form['#validate'][] = '_select_random_options_all'; // Select random values for all the multiselect fields
-
+    // Add it to the beginning of the list of validators so other validators can make use
+    // of the preselected values
+    array_unshift($form['#validate'], '_select_random_options_all');
     $randomized_fields = _getfields($type);
     // Set them default values (all values are selected by default)
     foreach ($randomized_fields as $key => $field) {

@@ -27,7 +27,7 @@ function npcrules_form_npc_node_form_alter (&$form, &$form_state, $form_id) {
 * Load the various rules files
 */
 module_load_include('inc', 'npcrules', 'inc/facial_hair.rules');
-module_load_include('inc', 'npcrules', 'inc/name.rules');
+module_load_include('inc', 'rpgnaming', 'inc/npc_name.rules');
 //module_load_include('inc', 'npcrules', 'inc/profession_adventurer.rules');
 module_load_include('inc', 'npcrules', 'inc/height.rules');
 
