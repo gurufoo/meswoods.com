@@ -4,3 +4,4 @@ sites/default/settings.php
 *.tar
 sites/default/files
 *.swp
+*.sql
