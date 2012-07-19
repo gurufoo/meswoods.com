@@ -2,6 +2,7 @@
 // The criteria and setup for determining the height
 function generate_npc_height ($form, &$form_state) {
   //dpm($form_state['values'], 'values in ()');
+  // Use the height the user entered, or if not specified generate a height.
   $height = $form_state['values']['field_height']['und'][0]['value'];
   if ($height == '' || !isset($height)) {
     $race = $form_state['values']['field_npc_race']['und'][0]['value'];
@@ -17,45 +18,54 @@ function generate_npc_height ($form, &$form_state) {
 // Generate the random height
 // @param $df Distinguishing Feature
 function _generate_random_height($race, $df) {
-//dpm($df, '$df');
+  //dpm($df, '$df');
   //dpm($race, '$race in _generate_random_name()');
-  //dpm($gender, '$gender in _generate_random_name()');
-  //$filename = $GLOBALS['_SERVER']['DOCUMENT_ROOT'] . drupal_get_path('module', 'npcrules') . '/inc/names.csv';
-  $docroot = $GLOBALS['_SERVER']['DOCUMENT_ROOT'];
-  $module_path = drupal_get_path('module', 'npcrules');
-  $filename = $docroot . '/' . $module_path . '/inc/heights.csv';
-  $file_handle = fopen($filename, "r");
-  $height_range = array();
-  while (!feof($file_handle)) {
-    $line = fgets($file_handle);
-    //dpm($line, '$line');
-    if (trim($line) != '') {
-      $heightarr = explode(',', trim($line));
-      //dpm($heightarr, '$heightarr');
-      if ($heightarr[0] == $race) {
-        $height_range['race']       = $heightarr[0];
-        $height_range['min_normal'] = $heightarr[1];
-        $height_range['max_normal'] = $heightarr[2];
-        $height_range['min_short']  = $heightarr[3];
-        $height_range['max_tall']   = $heightarr[4];
-      }
-    }
-  }
 
-  fclose($file_handle);
-  //dpm($height_range, '$height_range');
-  $min = $height_range['min_normal'];
-  $max = $height_range['max_normal'];
+  $range = _get_racial_measurements ($race, 'height');
+  //dpm($range, '$range');
+
+  $min = $range['min'];
+  $max = $range['max'];
+  //dpm($min,'$min');
+  //dpm($max, '$max');
   if ($df == 73) { // Exceptionally Short
-    $min = $height_range['min_short'];
-    $max = $height_range['min_normal'] - 1;
+    $max--; // The tallest an exceptionally short person can be is 1 inche shorter than the racial minimum
+    $min = floor($min * 0.85); // The shortest an exceptionally short person can be is 3/4 the racial minimum
   }else if ($df == 74) { // Exceptionally Tall
-    $min = $height_range['max_normal'] + 1;
-    $max = $height_range['max_tall'];
+    $min = $max + 1;
+    $max = ceil($max * 1.15);
   }
   //dpm($min, '$min');
   //dpm($max, '$max');
   $option = rand($min, $max);
   return $option;
+}
+
+function _get_racial_measurements ($race, $type) {
+  // If we're missing parameters
+  if (!isset($race) || !isset($type)) {
+    drupal_set_message('Warning: $race or $type not sent to _get_racial_measurements(). Generating bogus range.');
+    return array('min' => 46, 'max' => 74);
+  }
+  $range = array();
+  $range['dwarf']['height']['min'] = 51;
+  $range['dwarf']['height']['max'] = 57;
+
+  $range['elf']['height']['min'] = 64;
+  $range['elf']['height']['max'] = 72;
+
+  $range['halfling']['height']['min'] = 46;
+  $range['halfling']['height']['max'] = 50;
+
+  //$range['']['height']['min'] = ;
+  //$range['']['height']['max'] = ;
+
+
+  return $range[$race][$type];
+
+}
+
+function _get_racial_measurement_descriptor ($race, $type) {
+
 }
 
