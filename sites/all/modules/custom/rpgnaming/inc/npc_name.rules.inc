@@ -36,8 +36,7 @@ function _generate_random_name($race, $gender) {
   switch ($race) {
     case 'dwarf':
       $given_name = _generate_dwarf_given($gender);
-      dpm($given_name);
-      $display_type = rand(1,2);
+      $display_type = rand(1,3);
 
       switch ($display_type) {
         case 1: // Given [Creature]bane
@@ -61,6 +60,16 @@ function _generate_random_name($race, $gender) {
           $name = sprintf($format, ucfirst($given_name), ucfirst($stone), strtolower($weapon));
 
           break;
+
+        case 3: // Given son of Given
+        $daughterson = 'son';
+        if ($gender == 'female') {
+          $daughterson = 'daughter';         
+        }
+        $format = "%s %s of %s";
+        $name = sprintf($format, ucfirst(_generate_dwarf_given($gender)), $daughterson, ucfirst(_generate_dwarf_given($gender)));
+        break;
+
       }
 
       break;
@@ -69,7 +78,7 @@ function _generate_random_name($race, $gender) {
     $given_name = _generate_elf_given($gender);
       // Given [color][nature]
       $format = "%s %s%s";
-      $query = "SELECT color FROM colors WHERE color NOT IN ('Purple') ORDER BY RAND() LIMIT 1";
+      $query = "SELECT color FROM colors ORDER BY RAND() LIMIT 1";
       $color = db_query($query)->fetchField();
 
       $query = "SELECT noun FROM nouns_nature ORDER BY RAND() LIMIT 1";
@@ -77,6 +86,16 @@ function _generate_random_name($race, $gender) {
 
       $name = sprintf($format, $given_name, ucfirst($color), strtolower($nature));
       break;
+    
+    case 'halfling':
+    
+    $given_name = _generate_halfling_given ($gender);
+
+    $last_name = _generate_halfling_last();
+
+    $name = $given_name . ' ' . $last_name;
+
+    break;
 
     default:
       $name = $given_name;
@@ -95,8 +114,6 @@ function _get_vowels() {
 }
 
 function _generate_dwarf_given ($gender = 'male') {
-  //dpm(_get_consonants());
-  //dpm(_get_vowels());
   $consonants = _get_consonants();
   $vowels = _get_vowels();
   $nostarts = array(12,18);
@@ -114,8 +131,6 @@ function _generate_dwarf_given ($gender = 'male') {
     foreach ($vowels as $v) {
       foreach ($suffixes as $s) {
         foreach ($firsts as $f) {
-          //dpm($c . $v . $f . $s, $i);
-          //$i++;
           $names[] = $c . $v . $f . $s;
         }
       }
@@ -149,4 +164,186 @@ function _generate_elf_given ($gender = 'male') {
  //dpm($names);
  $index = array_rand($names);
  return ucfirst($names[$index]);
+}
+
+function _generate_halfling_given ($gender = 'male') {
+  $consonants = _get_consonants();
+  $vowels = _get_vowels();
+  //dpm(array_rand($vowels));
+  $nostarts = array(12,18,19);
+  foreach ($nostarts as $nostart) {
+    unset($consonants[$nostart]); // Dwarf names don't start with some letters
+  }
+  $halfling_names = array('Frodo', 
+  'Samwise', 
+  'Meriadoc', 
+  'Pippin', 
+  'Bilbo', 
+  'Bandobras', 
+  'Camellia', 
+  'Daddy', 
+  'Dinodas', 
+  'Erling', 
+  'Estella', 
+  'Ferumbras',
+  'Halfast',
+  'Harding',
+  'Isembard',
+  'Isumbras',
+  'Lalia',
+  'Lobelia',
+  'Lotho',
+  'Menegilda',
+  'Merimac',
+  'Milo',
+  'Odo',
+  'Pansy',
+  'Peregrin',
+  'Ponto',
+  'Robin',
+  'Rorimac',
+  'Rosamunda',
+  'Rufus',
+  'Tanta',
+  'Tobold',
+  'Tolman',
+  'Widow',
+  'Wilcome',
+  'Wiseman',
+  );
+  sort($halfling_names);
+  foreach ($halfling_names as $name) {
+    $len = strlen($name);
+    for ($i=0;$i<$len;$i++) {
+      if (in_array($name[$i], $vowels)) {
+        $rnd = array_rand($vowels);
+        $name[$i] = $vowels[$rnd];
+      }
+    }
+    $names[] = $name;
+  }
+
+
+  array_unique($names);
+  $rnd = array_rand($names);
+  return $names[$rnd];
+}
+
+
+function _generate_halfling_last() {
+  $prefix = array('Amber',
+  'Brown',
+  'Cold',
+  'Crazy',
+  'Curly',
+  'Earth',
+  'Far',
+  'Fast',
+  'Fat',
+  'Fire',
+  'Flow',
+  'Forest',
+  'Free',
+  'Glitter',
+  'Good',
+  'Great',
+  'Green',
+  'Hairy',
+  'Healthy',
+  'Home',
+  'Honor',
+  'Hot',
+  'Laughing',
+  'Lightning',
+  'Little',
+  'Many',
+  'Moon',
+  'Nimble',
+  'Plump',
+  'Pretty',
+  'Quick',
+  'Rain',
+  'Road',
+  'Running',
+  'Scatter',
+  'Shadow',
+  'Silver',
+  'Simple',
+  'Sky',
+  'Slow',
+  'Sly',
+  'Smooth',
+  'Spring',
+  'Sprout',
+  'Stout',
+  'Sun',
+  'Swift',
+  'Tall',
+  'Travelling',
+  'Under',
+  'Warm',
+  'Water',
+  'Wet',
+  'Wild',
+  );
+  $suffix = array('Ale',
+  'Arrow',
+  'Body',
+  'Bones',
+  'Bottom',
+  'Bread',
+  'Brother',
+  'Burrow',
+  'Caller',
+  'Cloak',
+  'Digger',
+  'Drum',
+  'Eye',
+  'Fellow',
+  'Fingers',
+  'Flower',
+  'Foot',
+  'Fox',
+  'Goat',
+  'Gold',
+  'Ghost',
+  'Grass',
+  'Hand',
+  'Head',
+  'Heart',
+  'Hearth',
+  'Hill',
+  'Lady',
+  'Leaf',
+  'Letters',
+  'Maker',
+  'Man',
+  'Map',
+  'Mind',
+  'One',
+  'Pipe',
+  'Shadow',
+  'Shaker',
+  'Sister',
+  'Skin',
+  'Sleep',
+  'Stick',
+  'Stoat',
+  'Swan',
+  'Talker',
+  'Taunt',
+  'Tender',
+  'Wanderer',
+  'Wecd',
+  'Will',
+  'Wind',
+  'Wit',
+  'Wolf',
+  );
+  
+  $rnd_pre = array_rand($prefix);
+  $rnd_suf = array_rand($suffix);
+
+  return $prefix[$rnd_pre] . strtolower($suffix[$rnd_suf]);
+
 }
