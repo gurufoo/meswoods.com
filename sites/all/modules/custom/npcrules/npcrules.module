@@ -19,6 +19,7 @@ function npcrules_form_npc_node_form_alter (&$form, &$form_state, $form_id) {
     $form['#validate'][] = 'facial_hair_male_dwarf_likely'; // Male Dwarves are likely to have facial hair
     //$form['#validate'][] = 'profession_adventurer_unlikely'; // NPCs aren't likely to have adventuring professions
     $form['#validate'][] = 'generate_npc_height'; // Generate an NPCs height
+    //$form['#validate'][] = 'generate_npc_weight'; // Generate an NPCs weight
     $form['#validate'][] = 'generate_npc_name'; // Generate a name
   }
 }
@@ -118,8 +119,37 @@ function computed_field_field_short_description_auto_compute(&$entity_field, $en
   $height_desc = _get_racial_measurement_descriptor($race_machine, 'height', $entity->field_height['und'][0]['value']);
   //dpm($height_desc, '$height_desc');
 
-  // Physical desciption
-  $format = '<p>%s is a <strong>%s</strong> <strong>%s</strong> that <strong>%s</strong>. ';
+/********* Physical desciption **********/
+// Store the descriptive sentences in an array for random ordering and imploding.
+$desc = array();
+/***** Gender / Race / Age (gra) *****/
+
+$gra_display_type = rand(1,1);
+
+switch ($gra_display_type) {
+  case 1:
+    $format = "%s is %s, and looks to be AGE.";
+    $desc[] = sprintf($format, ucfirst(_gender_format($gender, 'shehe')), $race);
+  break;
+}
+
+/***** Skin / Weight / Height (swh) *****/
+
+$swh_display_type = rand(1,2);
+switch ($swh_display_type) {
+case 1:
+  $format = "%s skin covers %s WEIGHT frame and %s stature.";
+  $desc[] = sprintf($format, ucfirst($sc), _gender_format($gender, 'herhis'), $height_desc);
+break;
+case 2:
+  $format = "%s %s stature and WEIGHT build are wrapped in %s skin";
+  $desc[] = sprintf($format, ucfirst(_gender_format($gender, 'herhis')), $height_desc, $sc);
+break;
+}
+
+
+/*
+$format = '<p>%s is a <strong>%s</strong> <strong>%s</strong> that <strong>%s</strong>. ';
   $desc =  sprintf($format, ucfirst($name), $gender, $race, $df);
 
   $format = '%s has %s, %s hair and %s skin.</p>';
@@ -128,9 +158,11 @@ function computed_field_field_short_description_auto_compute(&$entity_field, $en
 
   $format = '<p>When interacting with people,  %s. </p>';
   $desc .= sprintf($format, $mann);
+*/
 
-  //dpm($desc, '$desc');
-  $entity_field[0]['value'] = $desc;
+
+  dpm($desc, '$desc');
+  $entity_field[0]['value'] = implode('<br />',$desc);
 }
 
 
