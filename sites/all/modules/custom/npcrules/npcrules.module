@@ -29,7 +29,7 @@ function npcrules_form_npc_node_form_alter (&$form, &$form_state, $form_id) {
 module_load_include('inc', 'npcrules', 'inc/facial_hair.rules');
 module_load_include('inc', 'rpgnaming', 'inc/npc_name.rules');
 //module_load_include('inc', 'npcrules', 'inc/profession_adventurer.rules');
-module_load_include('inc', 'npcrules', 'inc/height.rules');
+module_load_include('inc', 'npcrules', 'inc/measurements.rules');
 
 /**
  * Select random values for all the multiselect fields
@@ -65,7 +65,8 @@ function _get_random_npc_fields () {
 				'field_instinct',
         'field_npc_approach',
 				'field_profession',
-        'field_alignment');
+        'field_alignment',
+        );
 }
 
 
@@ -76,16 +77,17 @@ function _get_random_npc_fields () {
 function computed_field_field_short_description_auto_compute(&$entity_field, $entity_type, $entity, $field, $instance, $langcode, $items) {
   //dpm($field, '$field');
   //dpm($entity, '$entity');
-
+  // Get the values for the reandomly selected fields.  This is so we don't have to type them out field by field.
   $fields = _get_random_npc_fields();
   $values = array();
   foreach ($fields as $field) {
     //dpm($field, '$field');
     $var = field_get_items('node', $entity, $field);
-    //dpm($field, '$field');
-    //dpm($var, '$var');
+    dpm($field, '$field');
+    dpm($var, '$var');
     $value_display = field_view_value('node', $entity, $field, $var[0]);
     $value_display = strtolower($value_display['#markup']);
+
     //dpm($value_display, '$value');
     $values[$field] = $value_display;
 
@@ -106,7 +108,9 @@ function computed_field_field_short_description_auto_compute(&$entity_field, $en
   $hc = $values['field_hair_color'];
   // Skin color
   $sc = $values['field_skin_color'];
-
+  // Height Descriptor
+  $height_desc = _get_racial_measurement_descriptor($race, 'height', $entity->field_height['und'][0]['value']);
+  dpm($height_desc, '$height_desc');
 
   // Physical desciption
   $format = '<p>%s is a <strong>%s</strong> <strong>%s</strong> that <strong>%s</strong>. ';
