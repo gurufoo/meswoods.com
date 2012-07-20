@@ -83,34 +83,40 @@ function computed_field_field_short_description_auto_compute(&$entity_field, $en
   foreach ($fields as $field) {
     //dpm($field, '$field');
     $var = field_get_items('node', $entity, $field);
-    dpm($field, '$field');
-    dpm($var, '$var');
+    //dpm($field, '$field');
+    //dpm($var, '$var');
     $value_display = field_view_value('node', $entity, $field, $var[0]);
     $value_display = strtolower($value_display['#markup']);
+    $value_machine = $var[0]['value'];
 
     //dpm($value_display, '$value');
-    $values[$field] = $value_display;
+    // Make sure to store both the display value and the machine name
+    // Some fields below rely on functions that in turn rely on machine names.
+    $values[$field]['display'] = $value_display;
+    $values[$field]['machine'] = $value_machine;
 
   }
   //dpm($values, '$values');
 
   $name = $entity->title;
-  $gender = $values['field_gender'];
+  $gender = $values['field_gender']['display'];
+  //dpm($gender, '$gender');
   // Race
-  $race = $values['field_npc_race'];
+  $race = $values['field_npc_race']['display'];
+  $race_machine = $values['field_npc_race']['machine'];
   // Distinquishing features
-  $df = $values['field_distinguishing_features'];
+  $df = $values['field_distinguishing_features']['display'];
   // Mannerisms
-  $mann = _placeholder_display($values['field_npc_mannerisms'], $entity);
+  $mann = _placeholder_display($values['field_npc_mannerisms']['display'], $entity);
   // Hair style 
-  $hs = _placeholder_display($values['field_hair_style'], $entity);
+  $hs = _placeholder_display($values['field_hair_style']['display'], $entity);
   // Hair color
-  $hc = $values['field_hair_color'];
+  $hc = $values['field_hair_color']['display'];
   // Skin color
-  $sc = $values['field_skin_color'];
+  $sc = $values['field_skin_color']['display'];
   // Height Descriptor
-  $height_desc = _get_racial_measurement_descriptor($race, 'height', $entity->field_height['und'][0]['value']);
-  dpm($height_desc, '$height_desc');
+  $height_desc = _get_racial_measurement_descriptor($race_machine, 'height', $entity->field_height['und'][0]['value']);
+  //dpm($height_desc, '$height_desc');
 
   // Physical desciption
   $format = '<p>%s is a <strong>%s</strong> <strong>%s</strong> that <strong>%s</strong>. ';

@@ -44,8 +44,8 @@ function _generate_random_height($race, $df) {
 
 function _get_racial_measurements ($race, $type) {
   // If we're missing parameters
-  dpm($race, '$race in _get_racial_measurements()');
-  dpm($type, '$type in _get_racial_measurements()');
+  //dpm($race, '$race in _get_racial_measurements()');
+  //dpm($type, '$type in _get_racial_measurements()');
   if (!isset($race) || !isset($type)) {
     drupal_set_message('Warning: $race or $type not sent to _get_racial_measurements(). Generating bogus range.');
     return array('min' => 46, 'max' => 74);
@@ -78,14 +78,14 @@ function _get_descriptor_values ($type) {
 * Gets the string value that describes the measurement of the npc.
 */ 
 function _get_racial_measurement_descriptor ($race, $type, $value) {
-  dpm($value, '$value passed in to _get_racial_measurement_descriptor()');
-  dpm($race, '$race passed in to _get_racial_measurement_descriptor()');
+  //dpm($value, '$value passed in to _get_racial_measurement_descriptor()');
+  //dpm($race, '$race passed in to _get_racial_measurement_descriptor()');
   // Get the range of the measurement for the race
   $range = _get_racial_measurements($race, $type);
   // Get the difference between the min and max
   $diff_range = $range['max']- $range['min'] + 1;
   $diff_min = $value - $range['min'];
-  dpm($range, '$range');
+  //dpm($range, '$range');
   //dpm($diff_range, '$diff_range');
   //dpm($diff_min, '$diff_min');
   // Get all the descriptors for the type of measurement
