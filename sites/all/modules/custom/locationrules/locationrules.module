@@ -15,8 +15,18 @@ function locationrules_form_location_node_form_alter (&$form, &$form_state, $for
     // Make the title unrequired, because we'll generate a random one if it's empty
     $form['title']['#required'] = FALSE;
     $form['title']['#default_value'] = 'Choose a random name for me';
+    dpm('bobo');
+    array_unshift($form['#submit'], '_location_submit');
   }
 }
+
+
+
+function _location_submit () {
+dpm('_location_submit()');
+}
+
+
 
 /**
 * Load the various rules files
