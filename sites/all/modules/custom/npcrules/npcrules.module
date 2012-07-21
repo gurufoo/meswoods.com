@@ -18,7 +18,7 @@ function npcrules_form_npc_node_form_alter (&$form, &$form_state, $form_id) {
     $form['#validate'][] = 'facial_hair_female_no_hair'; // Females don't have facial  hair
     $form['#validate'][] = 'facial_hair_male_dwarf_likely'; // Male Dwarves are likely to have facial hair
     //$form['#validate'][] = 'profession_adventurer_unlikely'; // NPCs aren't likely to have adventuring professions
-    $form['#validate'][] = 'generate_npc_height'; // Generate an NPCs height
+    $form['#validate'][] = 'generate_npc_measurements'; // Generate an NPCs numerical measurements (e.g. height, age, weight)
     //$form['#validate'][] = 'generate_npc_weight'; // Generate an NPCs weight
     $form['#validate'][] = 'generate_npc_name'; // Generate a name
   }
@@ -29,7 +29,7 @@ function npcrules_form_npc_node_form_alter (&$form, &$form_state, $form_id) {
 */
 module_load_include('inc', 'npcrules', 'inc/facial_hair.rules');
 module_load_include('inc', 'rpgnaming', 'inc/npc_name.rules');
-//module_load_include('inc', 'npcrules', 'inc/profession_adventurer.rules');
+module_load_include('module', 'rpgmain', 'rpgmain');
 module_load_include('inc', 'npcrules', 'inc/measurements.rules');
 
 /**
@@ -76,6 +76,7 @@ function _get_random_npc_fields () {
 * Generate a short description using the computed_field module.
 */
 function computed_field_field_short_description_auto_compute(&$entity_field, $entity_type, $entity, $field, $instance, $langcode, $items) {
+
   //dpm($field, '$field');
   //dpm($entity, '$entity');
   // Get the values for the reandomly selected fields.  This is so we don't have to type them out field by field.
@@ -116,53 +117,56 @@ function computed_field_field_short_description_auto_compute(&$entity_field, $en
   // Skin color
   $sc = $values['field_skin_color']['display'];
   // Height Descriptor
-  $height_desc = _get_racial_measurement_descriptor($race_machine, 'height', $entity->field_height['und'][0]['value']);
+  $height_desc = _get_racial_measurement_descriptor($race_machine, 'field_height', $entity->field_height['und'][0]['value']);
   //dpm($height_desc, '$height_desc');
-
-/********* Physical desciption **********/
-// Store the descriptive sentences in an array for random ordering and imploding.
-$desc = array();
-/***** Gender / Race / Age (gra) *****/
-
-$gra_display_type = rand(1,1);
-
-switch ($gra_display_type) {
-  case 1:
-    $format = "%s is %s, and looks to be AGE.";
-    $desc[] = sprintf($format, ucfirst(_gender_format($gender, 'shehe')), $race);
-  break;
-}
-
-/***** Skin / Weight / Height (swh) *****/
-
-$swh_display_type = rand(1,2);
-switch ($swh_display_type) {
-case 1:
-  $format = "%s skin covers %s WEIGHT frame and %s stature.";
-  $desc[] = sprintf($format, ucfirst($sc), _gender_format($gender, 'herhis'), $height_desc);
-break;
-case 2:
-  $format = "%s %s stature and WEIGHT build are wrapped in %s skin";
-  $desc[] = sprintf($format, ucfirst(_gender_format($gender, 'herhis')), $height_desc, $sc);
-break;
-}
+  $weight_desc = _get_racial_measurement_descriptor($race_machine, 'field_weight', $entity->field_weight['und'][0]['value']);
+  // Age
+  $age_desc = _get_racial_measurement_descriptor($race_machine, 'field_npc_age', $entity->field_npc_age['und'][0]['value']);
 
 
-/*
-$format = '<p>%s is a <strong>%s</strong> <strong>%s</strong> that <strong>%s</strong>. ';
-  $desc =  sprintf($format, ucfirst($name), $gender, $race, $df);
 
-  $format = '%s has %s, %s hair and %s skin.</p>';
-  $desc .= sprintf($format, ucfirst(_gender_format($gender, 'shehe')), $hc, $hs, $sc);
+  /********* Physical desciption **********/
+  // Store the descriptive sentences in an array for random ordering and imploding.
+  $desc = array();
+  /***** Gender / Race / Age (gra) *****/
 
+  $gra_display_type = rand(1,3);
 
-  $format = '<p>When interacting with people,  %s. </p>';
-  $desc .= sprintf($format, $mann);
-*/
+  switch ($gra_display_type) {
+    case 1:
+      $format = "%s is %s %s, and looks to be %s.";
+      $desc[] = sprintf($format, ucfirst(_gender_format($gender, 'shehe')),_avsan($race) , $race, $age_desc);
+      break;
+    case 2:
+      $format = "The %s person, by all appearances, is a %s %s.";
+      $desc[] = sprintf($format, $age_desc, $gender, $race);
+      break;
+    case 3:
+      $format = "The %s is %s, %s %s by the looks of it.";
+      $desc[] = sprintf($format, $gender, $age_desc, _avsan($race) ,$race);
+      break;
+  }
 
+  /***** Skin / Weight / Height (swh) *****/
 
-  dpm($desc, '$desc');
-  $entity_field[0]['value'] = implode('<br />',$desc);
+  $swh_display_type = rand(1,3);
+  switch ($swh_display_type) {
+    case 1:
+      $format = "%s skin covers %s %s frame and %s stature.";
+      $desc[] = sprintf($format, ucfirst($sc), _gender_format($gender, 'herhis'), $weight_desc, $height_desc);
+      break;
+    case 2:
+      $format = "%s %s stature and %s build are wrapped in %s skin.";
+      $desc[] = sprintf($format, ucfirst(_gender_format($gender, 'herhis')), $height_desc, $weight_desc, $sc);
+      break;
+    case 3:
+      $format = "%s %s form is paired with %s skin and %s physique.";
+      $desc[] = sprintf($format, ucfirst(_gender_format($gender, 'herhis')), $height_desc, $sc, $weight_desc);
+      break;
+  }
+
+  shuffle($desc);
+  $entity_field[0]['value'] = implode(' ',$desc);
 }
 
 

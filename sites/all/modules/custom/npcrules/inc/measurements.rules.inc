@@ -1,27 +1,49 @@
 <?php
 // The criteria and setup for determining the height
-function generate_npc_height ($form, &$form_state) {
+
+/**
+* Returns the machine names for number based measurements.
+*/
+function _get_measurement_fields () {
+  return array(
+      'field_height', 
+      'field_weight',
+      'field_npc_age',
+      );
+}
+
+function generate_npc_measurements ($form, &$form_state) {
+
   //dpm($form_state['values'], 'values in ()');
-  // Use the height the user entered, or if not specified generate a height.
-  $height = $form_state['values']['field_height']['und'][0]['value'];
-  if ($height == '' || !isset($height)) {
-    $race = $form_state['values']['field_npc_race']['und'][0]['value'];
-    $df = $form_state['values']['field_distinguishing_features']['und'][0]['value'];
-    $npc_height = _generate_random_height($race, $df);
-  }else {
-    $npc_height = $height;
+
+  $fields = _get_measurement_fields();
+  //dpm($fields, '$fields');
+
+  foreach ($fields as $field) {
+    $value = $form_state['values'][$field]['und'][0]['value'];
+    //dpm($value, '$value above the foreach()');
+    // Use the value the user entered, or if not specified generate a measurement
+    //dpm($field, '$field being used in foreach()');
+    if ($value == '' || !isset($value)) {
+      $race = $form_state['values']['field_npc_race']['und'][0]['value'];
+      $df = $form_state['values']['field_distinguishing_features']['und'][0]['value'];
+      $npc_value = _generate_random_measurement_value($race, $df, $field);
+    }else {
+      $npc_value = $value;
+    }
+    //dpm($npc_value, '$npc_value');
+    _setopt($field, $npc_value, $form, $form_state);
   }
-  //dpm($npc_height, '$npc_height');
-  _setopt('field_height', $npc_height, $form, $form_state);
 }
 
 // Generate the random height
 // @param $df Distinguishing Feature
-function _generate_random_height($race, $df) {
+function _generate_random_measurement_value($race, $df, $field) {
   //dpm($df, '$df');
   //dpm($race, '$race in _generate_random_name()');
+  //dpm($field, '$field passed into _generate_random_measurement_value()');
 
-  $range = _get_racial_measurements ($race, 'height');
+  $range = _get_racial_measurements ($race, $field);
   //dpm($range, '$range');
 
   $min = $range['min'];
@@ -42,46 +64,81 @@ function _generate_random_height($race, $df) {
   return $option;
 }
 
-function _get_racial_measurements ($race, $type) {
+/**
+* $field is the machine_name of the filed to get the measurements for.
+*/
+function _get_racial_measurements ($race, $field) {
   // If we're missing parameters
   //dpm($race, '$race in _get_racial_measurements()');
-  //dpm($type, '$type in _get_racial_measurements()');
-  if (!isset($race) || !isset($type)) {
+  //dpm($field, '$field passed in _get_racial_measurements()');
+  if (!isset($race) || !isset($field)) {
     drupal_set_message('Warning: $race or $type not sent to _get_racial_measurements(). Generating bogus range.');
     return array('min' => 46, 'max' => 74);
   }
+
+  // Mapping field names to database names
+  //dpm($field, '$field being sent to _get_mapped_db_name()');
+  $db_field_type =  _get_mapped_db_name($field);
+
   $range = array();
   $sql = "SELECT min,max FROM {npc_measurements} WHERE race = :race AND type = :type";
-  $range = db_query($sql, array(':type' => $type, ':race' => $race))->fetchAssoc();
+  $range = db_query($sql, array(':type' => $db_field_type, ':race' => $race))->fetchAssoc();
   //dpm($range, '$range');
-  
+
 
   return $range;
 
 }
 
 /**
+* Returns the db field name from the measurements table that matches the field machine name.
+*/
+function _get_mapped_db_name ($field) {
+  //dpm($field, '$field passed into _get_mapped_db_name()');
+  switch ($field) {
+    case 'field_height':
+      //dpm('in the case');
+      $dbfieldname = 'height';
+      break;
+    case 'field_weight':
+      $dbfieldname = 'weight';
+      break;
+    case 'field_npc_age':
+      $dbfieldname = 'age';
+      break;
+  }
+  //dpm($dbfieldname, '$dbfieldname');
+  return $dbfieldname;
+}
+
+/**
 * Gets an array of the strings that describe the various heights.
 */
-function _get_descriptor_values ($type) {
-  switch ($type) {
-  case 'height':
-    return array('diminutive', 'short', 'average', 'tall', 'towering');
-  break;
-  case 'weight':
-    return array('cadaverous', 'gaunt', 'slight', 'medium', 'toned', 'husky', 'fat', 'corpulant');
-  break;
+function _get_descriptor_values ($field) {
+  //dpm($field, '$field passed into _get_descriptor_values()');
+  switch ($field) {
+    case 'field_height':
+      return array('diminutive', 'short', 'average', 'tall', 'towering');
+      break;
+    case 'field_weight':
+      return array('cadaverous', 'gaunt', 'slight', 'medium', 'toned', 'husky', 'fat', 'corpulant');
+      break;
+    case 'field_npc_age':
+      return array('young', 'adolescent', 'middle aged', 'elderly', 'geriatric');
+      break;
   }
 }
 
 /**
 * Gets the string value that describes the measurement of the npc.
+* $field is the machine name for the field, it will be translated into the db field from the measurements table
 */ 
-function _get_racial_measurement_descriptor ($race, $type, $value) {
-  //dpm($value, '$value passed in to _get_racial_measurement_descriptor()');
+function _get_racial_measurement_descriptor ($race, $field, $value) {
   //dpm($race, '$race passed in to _get_racial_measurement_descriptor()');
+  //dpm($field, '$field passed into _get_racial_measurement_descriptor()');
+  //dpm($value, '$value passed in to _get_racial_measurement_descriptor()');
   // Get the range of the measurement for the race
-  $range = _get_racial_measurements($race, $type);
+  $range = _get_racial_measurements($race, $field);
   // Get the difference between the min and max
   $diff_range = $range['max']- $range['min'] + 1;
   $diff_min = $value - $range['min'];
@@ -89,7 +146,7 @@ function _get_racial_measurement_descriptor ($race, $type, $value) {
   //dpm($diff_range, '$diff_range');
   //dpm($diff_min, '$diff_min');
   // Get all the descriptors for the type of measurement
-  $descriptors = _get_descriptor_values ($type);
+  $descriptors = _get_descriptor_values ($field);
   //dpm($descriptors, '$descriptors');
 
 
@@ -99,7 +156,7 @@ function _get_racial_measurement_descriptor ($race, $type, $value) {
   //dpm($num_descriptors, '$num_descriptors');
 
 
-    // If the measurment value passed in is outside of the range, then
+  // If the measurment value passed in is outside of the range, then
   // the NPC is either the bottom or top of the array.
   // If this is the case, stop processing and return the first or last element.
   // The values in the array are listed from least to greatest 
@@ -116,16 +173,17 @@ function _get_racial_measurement_descriptor ($race, $type, $value) {
   $num_descriptors = count($descriptors);
   //dpm($num_descriptors, '$num_descriptors');
 
-$units_per_descriptor = $diff_range / $num_descriptors;
+  $units_per_descriptor = $diff_range / $num_descriptors;
   //dpm($units_per_descriptor, '$units_per_descriptor');
 
-$descriptor_index = ceil($diff_min / $units_per_descriptor);
-//dpm($descriptor_index, '$descriptor_index');
-// If the value is equal to the minimum option, then we're going to automatically set the index to 1
-// which is the lowest available, since we've stripped the extremes up above.
+  $descriptor_index = ceil($diff_min / $units_per_descriptor);
+  //dpm($descriptor_index, '$descriptor_index');
+  // If the value is equal to the minimum option, then we're going to automatically set the index to 1
+  // which is the lowest available, since we've stripped the extremes up above.
   if ($descriptor_index == 0) {
     $descriptor_index = $descriptor_index + 1;
   }
+  //dpm($descriptors[$descriptor_index], 'descriptor for ' . $field);
   return $descriptors[$descriptor_index];
 }
 
