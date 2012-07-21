@@ -26,6 +26,7 @@ function ct_npc_field_group_info() {
       0 => 'field_gender',
       1 => 'field_npc_race',
       2 => 'field_alignment',
+      3 => 'field_npc_age',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -73,6 +74,35 @@ function ct_npc_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_npc_eyes|node|npc|form';
+  $field_group->group_name = 'group_npc_eyes';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'npc';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_npc_physical';
+  $field_group->data = array(
+    'label' => 'Eyes',
+    'weight' => '32',
+    'children' => array(
+      0 => 'field_eye_color',
+      1 => 'field_eye_style',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'label' => 'Eyes',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => '',
+        'description' => '',
+      ),
+      'formatter' => 'collapsed',
+    ),
+  );
+  $export['group_npc_eyes|node|npc|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_npc_general|node|npc|form';
   $field_group->group_name = 'group_npc_general';
   $field_group->entity_type = 'node';
@@ -116,6 +146,7 @@ function ct_npc_field_group_info() {
       0 => 'field_facial_hair_style',
       1 => 'field_hair_color',
       2 => 'field_hair_style',
+      3 => 'field_hair_length',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -173,6 +204,7 @@ function ct_npc_field_group_info() {
       0 => 'group_npc_hair',
       1 => 'group_npc_body',
       2 => 'group_physical_other',
+      3 => 'group_npc_eyes',
     ),
     'format_type' => 'htab',
     'format_settings' => array(
@@ -313,7 +345,7 @@ function ct_npc_field_group_info() {
   $field_group->parent_name = 'group_npc_physical';
   $field_group->data = array(
     'label' => 'Other',
-    'weight' => '33',
+    'weight' => '34',
     'children' => array(
       0 => 'field_distinguishing_features',
     ),

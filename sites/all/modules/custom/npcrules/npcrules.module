@@ -57,6 +57,9 @@ function _get_random_npc_fields () {
         'field_facial_hair_style',
         'field_hair_color',
         'field_hair_style',
+        'field_hair_length',
+        'field_eye_color',
+        'field_eye_style',
         'field_gender',
         'field_npc_race',
         'field_skin_color',
@@ -114,6 +117,12 @@ function computed_field_field_short_description_auto_compute(&$entity_field, $en
   $hs = _placeholder_display($values['field_hair_style']['display'], $entity);
   // Hair color
   $hc = $values['field_hair_color']['display'];
+  // Hair Length
+  $hl = $values['field_hair_length']['display'];
+  // Eye color
+  $ec = $values['field_eye_color']['display'];
+  // Eye style
+  $es = $values['field_eye_style']['display'];
   // Skin color
   $sc = $values['field_skin_color']['display'];
   // Height Descriptor
@@ -163,6 +172,20 @@ function computed_field_field_short_description_auto_compute(&$entity_field, $en
       $format = "%s %s form is paired with %s skin and %s physique.";
       $desc[] = sprintf($format, ucfirst(_gender_format($gender, 'herhis')), $height_desc, $sc, $weight_desc);
       break;
+  }
+
+  /***** Eyes and Hair (eh) *****/
+
+  $eh_display_type = rand(1,2);
+  switch ($eh_display_type) {
+  case 1:
+    $format = "%s %s, %s eyes are complimented by %s %s, %s %s hair.";
+    $desc[] = sprintf($format, ucfirst(_gender_format($gender, 'herhis')), $ec, $es, _gender_format($gender, 'herhis'), $hl, $hs, $hc);
+  break;
+  case 2:
+    $format = "%s head is adorned with %s, %s %s and %s, %s eyes.";
+    $desc[] = sprintf($format, ucfirst(_gender_format($gender, 'herhis')), $hl, $hs, $hc, $es, $ec);
+  break;
   }
 
   shuffle($desc);

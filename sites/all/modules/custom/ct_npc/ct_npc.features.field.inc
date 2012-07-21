@@ -72,7 +72,7 @@ function ct_npc_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '22',
+        'weight' => '23',
       ),
     ),
   );
@@ -249,6 +249,161 @@ function ct_npc_field_default_fields() {
     ),
   );
 
+  // Exported field: 'node-npc-field_eye_color'.
+  $fields['node-npc-field_eye_color'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_eye_color',
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'list',
+      'settings' => array(
+        'allowed_values' => array(
+          400 => 'Blue',
+          401 => 'Light Blue',
+          402 => 'Dark Blue',
+          403 => 'Green',
+          404 => 'Light Green',
+          405 => 'Dark Green',
+          406 => 'Brown',
+          407 => 'Light Brown',
+          408 => 'Dark Brown',
+          409 => 'Hazel',
+          410 => 'Chestnut',
+          411 => 'Amber',
+          412 => 'Honey',
+          413 => 'Russet',
+          414 => 'Tawny',
+          415 => 'Charcoal Gray',
+          416 => 'Cloud Gray',
+          417 => 'Silver',
+          418 => 'Slate',
+          419 => 'Steel Gray',
+          420 => 'Chartreuse',
+          421 => 'Emerald Green',
+          422 => 'Forest Green',
+          423 => 'Grass Green',
+          424 => 'Jade Green',
+          425 => 'Leaf Green',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'translatable' => '0',
+      'type' => 'list_text',
+    ),
+    'field_instance' => array(
+      'bundle' => 'npc',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'list',
+          'settings' => array(),
+          'type' => 'list_default',
+          'weight' => 19,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_eye_color',
+      'label' => 'Eye Color',
+      'required' => 1,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_buttons',
+        'weight' => '33',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-npc-field_eye_style'.
+  $fields['node-npc-field_eye_style'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_eye_style',
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'list',
+      'settings' => array(
+        'allowed_values' => array(
+          426 => 'Almond shaped',
+          427 => 'Deep set',
+          428 => 'Heavy lidded',
+          429 => 'Oval',
+          430 => 'Slanted',
+          431 => 'Unremarkable',
+          432 => 'Wide',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'translatable' => '0',
+      'type' => 'list_text',
+    ),
+    'field_instance' => array(
+      'bundle' => 'npc',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'list',
+          'settings' => array(),
+          'type' => 'list_default',
+          'weight' => 20,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_eye_style',
+      'label' => 'Eye Style',
+      'required' => 1,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_buttons',
+        'weight' => '34',
+      ),
+    ),
+  );
+
   // Exported field: 'node-npc-field_facial_hair_style'.
   $fields['node-npc-field_facial_hair_style'] = array(
     'field_config' => array(
@@ -328,7 +483,7 @@ function ct_npc_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '34',
+        'weight' => '35',
       ),
     ),
   );
@@ -463,6 +618,72 @@ function ct_npc_field_default_fields() {
     ),
   );
 
+  // Exported field: 'node-npc-field_hair_length'.
+  $fields['node-npc-field_hair_length'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_hair_length',
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'list',
+      'settings' => array(
+        'allowed_values' => array(
+          381 => 'Shaved',
+          378 => 'Short cropped',
+          375 => 'Short',
+          372 => 'Shoulder length',
+          369 => 'Long',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'translatable' => '0',
+      'type' => 'list_text',
+    ),
+    'field_instance' => array(
+      'bundle' => 'npc',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'list',
+          'settings' => array(),
+          'type' => 'list_default',
+          'weight' => 21,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_hair_length',
+      'label' => 'Hair length',
+      'required' => 1,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_buttons',
+        'weight' => '33',
+      ),
+    ),
+  );
+
   // Exported field: 'node-npc-field_hair_style'.
   $fields['node-npc-field_hair_style'] = array(
     'field_config' => array(
@@ -481,15 +702,15 @@ function ct_npc_field_default_fields() {
       'module' => 'list',
       'settings' => array(
         'allowed_values' => array(
-          368 => 'Long straight',
-          369 => 'Short straight',
-          370 => 'Long Curly',
-          371 => 'Short Curly',
-          372 => 'Shaved',
-          373 => 'Cropped short',
           374 => 'Afro style',
+          373 => 'Cropped',
+          370 => 'Curly',
+          368 => 'Straight',
           375 => 'Pigtail style',
           376 => 'Ponytail style',
+          372 => 'Shaved',
+          371 => 'Wavy',
+          369 => 'Unkempt',
         ),
         'allowed_values_function' => '',
       ),
@@ -528,7 +749,7 @@ function ct_npc_field_default_fields() {
         'module' => 'options',
         'settings' => array(),
         'type' => 'options_buttons',
-        'weight' => '33',
+        'weight' => '34',
       ),
     ),
   );
@@ -784,6 +1005,68 @@ function ct_npc_field_default_fields() {
         'settings' => array(),
         'type' => 'options_buttons',
         'weight' => '39',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-npc-field_npc_age'.
+  $fields['node-npc-field_npc_age'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_npc_age',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'locked' => '0',
+      'module' => 'number',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'number_integer',
+    ),
+    'field_instance' => array(
+      'bundle' => 'npc',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'number',
+          'settings' => array(
+            'decimal_separator' => '.',
+            'prefix_suffix' => TRUE,
+            'scale' => 0,
+            'thousand_separator' => ' ',
+          ),
+          'type' => 'number_integer',
+          'weight' => 18,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_npc_age',
+      'label' => 'Age',
+      'required' => 0,
+      'settings' => array(
+        'max' => '',
+        'min' => '',
+        'prefix' => '',
+        'suffix' => '',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'number',
+        'settings' => array(),
+        'type' => 'number',
+        'weight' => '22',
       ),
     ),
   );
@@ -1406,13 +1689,17 @@ function ct_npc_field_default_fields() {
   // Translatables
   // Included for use with string extractors like potx.
   t('A trait that is intuitively obvious to the casual observer.  Likely to be remembered.');
+  t('Age');
   t('Alignment');
   t('Approach');
   t('Distinguishing Features');
+  t('Eye Color');
+  t('Eye Style');
   t('Facial Hair Style');
   t('Gender');
   t('Hair Color');
   t('Hair Style');
+  t('Hair length');
   t('Height');
   t('Instinct');
   t('Mannerisms');
