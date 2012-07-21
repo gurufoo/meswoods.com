@@ -144,3 +144,15 @@ function _select_random_options_all ($form, &$form_state) {
   }
 }
 
+
+function _avsan ($nextword) {
+  $indefinate_article = "a"; // $next word sounds like it starts with a consonant
+  $an_words = array('eladrin',
+      'elf',
+      );
+  if (in_array($nextword, $an_words)) {
+    $indefinate_article = "an";
+  }
+
+  return $indefinate_article;
+}
