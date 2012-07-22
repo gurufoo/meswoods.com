@@ -1,4 +1,15 @@
 <?php
+
+/**
+* Load the various rules files
+*/
+module_load_include('inc', 'npcrules', 'inc/facial_hair.rules');
+module_load_include('inc', 'rpgnaming', 'inc/npc_name.rules');
+module_load_include('module', 'rpgmain', 'rpgmain');
+module_load_include('inc', 'npcrules', 'inc/measurements.rules');
+
+
+
 /**
 * This specifically affets the NPC content type creation form
 */
@@ -24,26 +35,6 @@ function npcrules_form_npc_node_form_alter (&$form, &$form_state, $form_id) {
   }
 }
 
-/**
-* Load the various rules files
-*/
-module_load_include('inc', 'npcrules', 'inc/facial_hair.rules');
-module_load_include('inc', 'rpgnaming', 'inc/npc_name.rules');
-module_load_include('module', 'rpgmain', 'rpgmain');
-module_load_include('inc', 'npcrules', 'inc/measurements.rules');
-
-/**
- * Select random values for all the multiselect fields
- */
-/*function _select_random_options_all ($form, &$form_state) {
-  $fields = _get_random_npc_fields();
-  foreach ($fields as $field) { // $field = one of the form elements that should be chosen randomly
-    // $random = all the selected items from the form element
-    $random = array_rand($form_state['values'][$field]['und']);
-    $value = $form_state['values'][$field]['und'][$random]['value'];
-		_setopt($field, $value, $form, $form_state);
-  }
-}*/
 
 
 /**
