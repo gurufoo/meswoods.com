@@ -1,27 +1,31 @@
 <?php
 
-function generate_npc_name ($form, &$form_state) {
+function validate_npc_names ($form, &$form_state) {
+  //TODO This function needs to be refactored so that it isn't dependent on the $form and $form_state vars.
+  //TODO In fact, I think there are many functions that expect form arrays and then directly set the values.
+  //TODO This shouldn't be the case, the functions should generate values and then return them.  The calling
+  //TODO fucnctions should then call the proper setting functions
+
+  //TODO Refactor ideas.  Have this function simply assemble the needed varialbes, and call the _generate_random_name()
+  // function. The _generate_random_name() function should ONLY generate the name, then send the proper data to the proper
+  // saving or setting function(s).
+
   //dpm('begin generate_npc_name()');
   //dpm($form['#validate'], '#validate');
   //dpm($form_state['values'], 'values in ()');
-  
-  if (
-      $form_state['values']['title'] == 'Choose a random name for me'
+
+  // If the user wants a random name, assemble the variables and call the random name function.
+  if ($form_state['values']['title'] == 'Choose a random name for me'
       ||
       !isset($form_state['values']['title'])
      ) {
-
-    //dpm('pick a random name');
     $race = $form_state['values']['field_npc_race']['und'][0]['value'];
     $gender = $form_state['values']['field_gender']['und'][0]['value'];
     $npc_name = _generate_random_name($race, $gender);
-    
-
-  }else {
+  }else { // The user entered their own name, use it.
     $npc_name = $form_state['values']['title'];
   }
   form_set_value($form['title'], $npc_name, $form_state);
-
 }
 
 function _generate_random_name($race, $gender) {

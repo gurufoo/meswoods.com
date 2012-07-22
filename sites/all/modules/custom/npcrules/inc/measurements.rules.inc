@@ -1,5 +1,19 @@
 <?php
-// The criteria and setup for determining the height
+
+
+/**
+* Validate function.  It pretty much just calls the worker function.
+*/
+function validate_npc_measurements ($form, &$form_state) {
+ $race = $form_state['values']['field_npc_race']['und'][0]['value'];
+ $df = $form_state['values']['field_distinguishing_features']['und'][0]['value'];
+
+  $measurements = generate_npc_measurements($race, $df);
+  dpm($measurements, '$measurements in validate_npc_measurements()');
+  foreach ($measurements as $field => $measurement) {
+  _setopt($field, $measurement, $form, $form_state);
+  }
+}
 
 /**
 * Returns the machine names for number based measurements.
@@ -12,35 +26,34 @@ function _get_measurement_fields () {
       );
 }
 
-function generate_npc_measurements ($form, &$form_state) {
+/**
+* Generates and returns measurements (e.g. age, weight, height, etc...)
+* @param $race string The db-stored value of the race
+* @param $gender string The db-stored value of the gender
+* @param $df int The Distinquishing Feature of the NPC. This param
+*   determins if the resulting measurement should be outside the
+*   normal range.
+* @return array with the value of the measurement, keyed by the field
+*   which stores the value.
+*/
 
-  //dpm($form_state['values'], 'values in ()');
-
+function generate_npc_measurements ($race, $df = NULL) {
+  // Get the fields that are "measurement fields". These are fields that
+  // are stored numerically but have textual descriptors as well.
   $fields = _get_measurement_fields();
-  //dpm($fields, '$fields');
-
+  // Get the value for each measurement field.
+  $measurements = array(); 
   foreach ($fields as $field) {
-    $value = $form_state['values'][$field]['und'][0]['value'];
-    //dpm($value, '$value above the foreach()');
-    // Use the value the user entered, or if not specified generate a measurement
-    //dpm($field, '$field being used in foreach()');
-    if ($value == '' || !isset($value)) {
-      $race = $form_state['values']['field_npc_race']['und'][0]['value'];
-      $df = $form_state['values']['field_distinguishing_features']['und'][0]['value'];
-      $npc_value = _generate_random_measurement_value($race, $df, $field);
-    }else {
-      $npc_value = $value;
-    }
-    //dpm($npc_value, '$npc_value');
-    _setopt($field, $npc_value, $form, $form_state);
+    $measurements[$field] = _generate_random_measurement_value($race, $df, $field);
   }
+    return $measurements;
 }
 
 // Generate the random height
 // @param $df Distinguishing Feature
 function _generate_random_measurement_value($race, $df, $field) {
   //dpm($df, '$df');
-  //dpm($race, '$race in _generate_random_name()');
+  //dpm($race, '$race passed into _generate_random_measurement_value()');
   //dpm($field, '$field passed into _generate_random_measurement_value()');
 
   $range = _get_racial_measurements ($race, $field);

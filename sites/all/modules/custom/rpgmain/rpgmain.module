@@ -3,10 +3,10 @@
 function rpgmain_menu () {
   $items = array();
 
-  $items['admin/rpg/create/%/%'] = array(
+  $items['admin/rpg/create/%'] = array(
       'title' => 'Create nodes',
-      'page callback' => 'rpgmain_rpg_createnodes',
-      'page arguments' => array(3, 4),
+      'page callback' => 'rpgmain_rpg_createnode',
+      'page arguments' => array(3),
       'access arguments' => array('access content'),
       'type' => MENU_CALLBACK,
       );
@@ -15,25 +15,57 @@ function rpgmain_menu () {
 
 }
 
-
-function rpgmain_rpg_createnodes ($nodetype, $numnodes = 1) {
+/**
+* This is a Parent-type function.  It should call all the child-type functions
+* needed to generate the type of node that $nodetype determines.  After assembling
+* the node, it should save the node.
+* @param $nodetype string The machine name of the node type to create.
+* @param $presets array An array that stores any predetermined values, keyed by
+*   the machine name of the field.  An example use case is when this a tavern  gets
+*   created, it would be nice to be able to create an NPC with the 'bartender' profession.
+*/
+function rpgmain_rpg_createnode ($nodetype, $presets = NULL) {
+// TODO Make this function do what its documentation says it should do 8^)
+module_load_include('inc', 'rpgnaming', 'inc/npc_name.rules');
+  module_load_include('inc', 'npcrules', 'inc/measurements.rules');
   dpm($nodetype);
-  dpm($numnodes);
+  dpm($presets, '$presets');
 
   $newnode = new stdClass();
   $newnode->type = $nodetype;
-  $newnode->title = 'Choose a random name for me';
   $newnode->language = LANGUAGE_NONE;
 
-  $newnode->field_distinguishing_features[$newnode->language][0]['value'] = 84;
+  $randomized_fields = _getfields ($nodetype);
+  //dpm($randomized_fields, '$randomized_fields');
+  foreach ($randomized_fields as $field) {
+    $opts = _getopts ($field);
+    //dpm($opts, '$opts');
+    $rnd = array_rand($opts);
+    //$newnode->field_distinguishing_features[$newnode->language][0]['value'] = 84;
+    $newnode->{$field}[$newnode->language][0]['value'] = $rnd;
+  }
+  //dpm($newnode, '$newnode');
+  $race = $newnode->field_npc_race['und'][0]['value'];
+  $df = $newnode->field_distinguishing_features['und'][0]['value'];
+  $measurement_fields = generate_npc_measurements ($race, $df);
+  //dpm($measurement_fields, '$measurement_fields');
 
-  dpm($newnode, '$newnode before prepare');
+  foreach ($measurement_fields as $field => $value) {
+    $newnode->{$field}[$newnode->language][0]['value'] = $value;
+  }
+  $race = $newnode->field_npc_race['und'][0]['value'];
+  $gender = $newnode->field_gender['und'][0]['value'];
+  $name = _generate_random_name($race, $gender);
+  //dpm($name, '$name in rpgmain_rpg_createnodes()');
+  $newnode->title = $name;
+
+  //dpm($newnode, '$newnode before prepare');
   node_object_prepare($newnode);
-  dpm($newnode, '$newnode after prepare');
+  //dpm($newnode, '$newnode after prepare');
   $node = node_submit($newnode);
   node_save($node);
-  dpm($node, '$node after save');
-  return 'bobo';
+  //dpm($node, '$node after save');
+  return 'Page content or redirect location TBD... TODO';
 }
 
 /**
@@ -43,6 +75,7 @@ function rpgmain_form_node_form_alter (&$form, &$form_state) {
   // Get all of the form elements to be randomized from the module that controls this content type.
   // After getting the elements to be randomized, pre-select all options for that element
   // Name the function _get_random_[node_type_machine_name]_fields.
+  //dpm($form_state['node'], '$node');
   drupal_add_js(drupal_get_path('theme', 'rpg') . '/js/node-form.js');
   $type = $form['type']['#value'];
   $module = $type . 'rules';
@@ -51,24 +84,26 @@ function rpgmain_form_node_form_alter (&$form, &$form_state) {
   // get them element types
   if (module_exists($module)) {
 
-    // Add a validate handler to randomly select from all the fields selected
+    // Add a validate handler to randomly select from all the fields selected.
     // Add it to the beginning of the list of validators so other validators can make use
-    // of the preselected values
+    // of the randomly generated values values
     array_unshift($form['#validate'], '_select_random_options_all');
     $randomized_fields = _getfields($type);
     // Set them default values (all values are selected by default)
-    foreach ($randomized_fields as $key => $field) {
-      // Add the UX select all / deselect all options
-      $form[$field]['und']['#title'] .= ' <span class="deselectall">(Deselect all</span>';
-      $form[$field]['und']['#title'] .= ' <span class="selectall">Select all)</span>';
+    if (!isset($form_state['node']->nid)) { // Don't pre-select all options if editing an existing node!
+      foreach ($randomized_fields as $key => $field) {
+        // Add the UX select all / deselect all options
+        $form[$field]['und']['#title'] .= ' <span class="deselectall">(Deselect all</span>';
+            $form[$field]['und']['#title'] .= ' <span class="selectall">Select all)</span>';
 
-      $options = list_allowed_values($all_fields[$field]);
-      $defaults = array();
-      foreach ($options as $key => $option) {
-        $defaults[] = $key;
+        $options = list_allowed_values($all_fields[$field]);
+        $defaults = array();
+        foreach ($options as $key => $option) {
+          $defaults[] = $key;
+        }
+        $form[$field]['und']['#default_value'] = $defaults;
+
       }
-      $form[$field]['und']['#default_value'] = $defaults;
-
     }
   }
 }
