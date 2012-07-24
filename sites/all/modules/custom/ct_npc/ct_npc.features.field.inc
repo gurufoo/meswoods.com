@@ -53,6 +53,12 @@ function ct_npc_field_default_fields() {
           'type' => 'list_default',
           'weight' => 10,
         ),
+        'entityreference_view_widget' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -225,6 +231,12 @@ function ct_npc_field_default_fields() {
           'type' => 'list_default',
           'weight' => 5,
         ),
+        'entityreference_view_widget' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -312,6 +324,12 @@ function ct_npc_field_default_fields() {
           'type' => 'list_default',
           'weight' => 19,
         ),
+        'entityreference_view_widget' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -379,6 +397,12 @@ function ct_npc_field_default_fields() {
           'settings' => array(),
           'type' => 'list_default',
           'weight' => 20,
+        ),
+        'entityreference_view_widget' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
         'teaser' => array(
           'label' => 'above',
@@ -464,6 +488,12 @@ function ct_npc_field_default_fields() {
           'type' => 'list_default',
           'weight' => 0,
         ),
+        'entityreference_view_widget' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -526,6 +556,12 @@ function ct_npc_field_default_fields() {
           'settings' => array(),
           'type' => 'list_default',
           'weight' => 2,
+        ),
+        'entityreference_view_widget' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
         'teaser' => array(
           'label' => 'above',
@@ -594,6 +630,12 @@ function ct_npc_field_default_fields() {
           'type' => 'list_default',
           'weight' => 1,
         ),
+        'entityreference_view_widget' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -659,6 +701,12 @@ function ct_npc_field_default_fields() {
           'settings' => array(),
           'type' => 'list_default',
           'weight' => 21,
+        ),
+        'entityreference_view_widget' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
         'teaser' => array(
           'label' => 'above',
@@ -730,6 +778,12 @@ function ct_npc_field_default_fields() {
           'type' => 'list_default',
           'weight' => 14,
         ),
+        'entityreference_view_widget' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -787,6 +841,12 @@ function ct_npc_field_default_fields() {
           ),
           'type' => 'number_integer',
           'weight' => 11,
+        ),
+        'entityreference_view_widget' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
         'teaser' => array(
           'label' => 'above',
@@ -889,6 +949,12 @@ function ct_npc_field_default_fields() {
           'type' => 'list_default',
           'weight' => 7,
         ),
+        'entityreference_view_widget' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -909,6 +975,68 @@ function ct_npc_field_default_fields() {
         'settings' => array(),
         'type' => 'options_buttons',
         'weight' => '40',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-npc-field_location'.
+  $fields['node-npc-field_location'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_location',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'locked' => '0',
+      'module' => 'relation_dummy_field',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'relation',
+    ),
+    'field_instance' => array(
+      'bundle' => 'npc',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'relation_dummy_field',
+          'settings' => array(),
+          'type' => 'relation_default',
+          'weight' => 22,
+        ),
+        'entityreference_view_widget' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_location',
+      'label' => 'Location',
+      'required' => 0,
+      'settings' => array(
+        'relation_type' => array(
+          'is_an_occupant_of' => 'is_an_occupant_of',
+        ),
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'relation_dummy_field',
+        'settings' => array(),
+        'type' => 'relation_default',
+        'weight' => '23',
       ),
     ),
   );
@@ -985,6 +1113,12 @@ function ct_npc_field_default_fields() {
           'type' => 'list_default',
           'weight' => 6,
         ),
+        'entityreference_view_widget' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -1042,6 +1176,12 @@ function ct_npc_field_default_fields() {
           ),
           'type' => 'number_integer',
           'weight' => 18,
+        ),
+        'entityreference_view_widget' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1119,6 +1259,12 @@ function ct_npc_field_default_fields() {
           'settings' => array(),
           'type' => 'list_default',
           'weight' => 16,
+        ),
+        'entityreference_view_widget' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1264,6 +1410,12 @@ function ct_npc_field_default_fields() {
           'type' => 'list_default',
           'weight' => 4,
         ),
+        'entityreference_view_widget' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -1330,6 +1482,12 @@ function ct_npc_field_default_fields() {
           'settings' => array(),
           'type' => 'list_default',
           'weight' => 3,
+        ),
+        'entityreference_view_widget' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1466,6 +1624,12 @@ function ct_npc_field_default_fields() {
           'type' => 'list_default',
           'weight' => 17,
         ),
+        'entityreference_view_widget' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -1531,6 +1695,12 @@ function ct_npc_field_default_fields() {
           'settings' => array(),
           'type' => 'computed_field_plain',
           'weight' => 13,
+        ),
+        'entityreference_view_widget' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1600,6 +1770,12 @@ function ct_npc_field_default_fields() {
           'type' => 'list_default',
           'weight' => 15,
         ),
+        'entityreference_view_widget' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -1658,6 +1834,12 @@ function ct_npc_field_default_fields() {
           'type' => 'number_integer',
           'weight' => 12,
         ),
+        'entityreference_view_widget' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
@@ -1702,6 +1884,7 @@ function ct_npc_field_default_fields() {
   t('Hair length');
   t('Height');
   t('Instinct');
+  t('Location');
   t('Mannerisms');
   t('Motivation');
   t('Profession');
