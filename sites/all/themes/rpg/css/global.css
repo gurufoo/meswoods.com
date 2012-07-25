@@ -34,7 +34,8 @@ h2.pane-title{
 
 
 
-.pane-content{
+.pane-content,
+div.ctools-modal-content{
   padding:40px 10px 10px 10px;
   background-color:#cccccc;
   box-shadow:2px 2px 5px #000000;

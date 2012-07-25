@@ -35,7 +35,7 @@ function _generate_random_location_name ($type) {
 
 function _generate_tavern_name() {
 
-  $name_type = rand(1,2);
+  $name_type = rand(1,4);
 
   switch ($name_type) {
     case 1: // Adjective Creature Synonym
@@ -48,14 +48,34 @@ function _generate_tavern_name() {
       $name = sprintf($format, ucfirst($adj), strtolower($creature), strtolower($synonym));
 
       break;
-      case 2:
-$verb = _get_verb();
-$creature = _get_creature();
-$synonym = _get_synonym();
+    case 2: // The Verb Creature Synonym
+      $verb = _get_verb();
+      $creature = _get_creature();
+      $synonym = _get_synonym();
 
-$format = "The %s of the %s %s";
-$name = sprintf($format, ucfirst($synonym), ucfirst($verb), ucfirst($creature));
+      $format = "The %s of the %s %s";
+      $name = sprintf($format, ucfirst($synonym), ucfirst($verb), ucfirst($creature));
       break;
+    case 3: // Verb Profession Synonym
+      $verb = _get_verb();
+      $professions = _getopts('field_profession');
+      $rnd = array_rand($professions);
+      $profession = $professions[$rnd];
+      $synonym = _get_synonym();
+      $format = "%s %s %s";
+      $name = sprintf($format, $verb, $profession, $synonym);
+
+    break;
+    case 4: // Profession and the  Creature Synonym
+    $professions = _getopts('field_profession');
+    $rnd = array_rand($professions);
+    $profession = $professions[$rnd];
+    $creature = _get_creature();
+    $synonym = _get_synonym();
+    $format = "The %s and %s %s";
+    $name = sprintf($format, $profession, $creature, $synonym);
+
+
   }
 
   return $name;

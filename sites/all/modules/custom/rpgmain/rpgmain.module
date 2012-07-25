@@ -10,10 +10,31 @@ function rpgmain_menu () {
       'access arguments' => array('access content'),
       'type' => MENU_CALLBACK,
       );
+  // Show a node in a ctools modal window.
+  $items['rpgmodal/%node'] = array(
+      'page callback' => '_node_display',
+      'page arguments' => array(1),
+      'access arguments' => array('access content'),
+      'modal' => TRUE,
+      );
+
 
   return $items;
 
 }
+
+
+/**
+* Helper function that will display node content.
+* Initially used in modal displays
+* @see rpg_menu()
+*/
+function _node_display ($node) {
+  $node2 = node_view($node);
+  $output = drupal_render($node2); 
+  return $output;
+}
+
 
 /**
 * This is a Parent-type function.  It should call all the child-type functions
@@ -25,8 +46,8 @@ function rpgmain_menu () {
 *   created, it would be nice to be able to create an NPC with the 'bartender' profession.
 */
 function rpgmain_rpg_createnode ($nodetype, $presets = NULL) {
-// TODO Make this function do what its documentation says it should do 8^)
-module_load_include('inc', 'rpgnaming', 'inc/npc_name.rules');
+  // TODO Make this function do what its documentation says it should do 8^)
+  module_load_include('inc', 'rpgnaming', 'inc/npc_name.rules');
   module_load_include('inc', 'npcrules', 'inc/measurements.rules');
   dpm($nodetype);
   dpm($presets, '$presets');

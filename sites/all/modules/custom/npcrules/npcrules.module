@@ -1,5 +1,7 @@
 <?php
 
+
+
 /**
 * Load the various rules files
 */
@@ -10,11 +12,13 @@ module_load_include('inc', 'npcrules', 'inc/measurements.rules');
 
 
 
+
 /**
 * This specifically affets the NPC content type creation form
 */
 function npcrules_form_npc_node_form_alter (&$form, &$form_state, $form_id) {
-  //dpm($form_id, '$form_id');
+
+//dpm($form_id, '$form_id');
   //dpm($form_state, '$form_state');
   //dpm($form, '$form');
 
