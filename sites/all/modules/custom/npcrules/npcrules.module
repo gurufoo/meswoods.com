@@ -81,7 +81,7 @@ function computed_field_field_short_description_auto_compute(&$entity_field, $en
   $fields = _get_random_npc_fields();
   $values = array();
   foreach ($fields as $field) {
-    //dpm($field, '$field');
+
     $var = field_get_items('node', $entity, $field);
     //dpm($field, '$field');
     //dpm($var, '$var');
@@ -195,7 +195,7 @@ function _placeholder_display ($content, $node) {
   //dpm($content, '$mannerisms');
   //dpm($node, '$node');
   
-  //Set up the gender pronouna
+  //Set up the gender pronoun
   $gender = $node->field_gender['und'][0]['value'];
   
   $patterns = array();

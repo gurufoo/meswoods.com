@@ -47,52 +47,79 @@ function _node_display ($node) {
 */
 function rpgmain_rpg_createnode ($nodetype, $presets = NULL) {
   // TODO Make this function do what its documentation says it should do 8^)
-  module_load_include('inc', 'rpgnaming', 'inc/npc_name.rules');
-  module_load_include('inc', 'npcrules', 'inc/measurements.rules');
-  dpm($nodetype);
-  dpm($presets, '$presets');
-
+  //dpm($nodetype, '$nodetype');
+  //dpm($presets, '$presets');
+  // Create a baseline node
   $newnode = new stdClass();
   $newnode->type = $nodetype;
   $newnode->language = LANGUAGE_NONE;
-
-  $randomized_fields = _getfields ($nodetype);
-  //dpm($randomized_fields, '$randomized_fields');
-  foreach ($randomized_fields as $field) {
-    $opts = _getopts ($field);
-    //dpm($opts, '$opts');
-    $rnd = array_rand($opts);
-    //$newnode->field_distinguishing_features[$newnode->language][0]['value'] = 84;
-    $newnode->{$field}[$newnode->language][0]['value'] = $rnd;
-  }
   //dpm($newnode, '$newnode');
-  $race = $newnode->field_npc_race['und'][0]['value'];
-  $df = $newnode->field_distinguishing_features['und'][0]['value'];
-  $measurement_fields = generate_npc_measurements ($race, $df);
-  //dpm($measurement_fields, '$measurement_fields');
-
-  foreach ($measurement_fields as $field => $value) {
-    $newnode->{$field}[$newnode->language][0]['value'] = $value;
+  // Construct a fucntion name to call for specific node types
+  $fn = '_rpgmain_populate_node_' . $nodetype;
+  if (function_exists($fn)) {
+    // Get node type specific data
+    $node_specifics = $fn($presets);
+  } else {
+    $format = "A <strong>%s</strong> node specific function does not exist.  Create <strong>%s</strong> and have it return an object with properties specific to the <strong>%s</strong> node type.";
+    return sprintf($format, $nodetype, $fn, $nodetype, TRUE);
   }
-  $race = $newnode->field_npc_race['und'][0]['value'];
-  $gender = $newnode->field_gender['und'][0]['value'];
-  $name = _generate_random_name($race, $gender);
-  //dpm($name, '$name in rpgmain_rpg_createnodes()');
-  $newnode->title = $name;
-
+  //dpm($node_specifics, '$node_specifics');
+  // Merge the baseline node with the node type specifid data
+  $newnode = (object) array_merge( (array) $newnode, (array) $node_specifics);
+  //dpm($newnode, '$newnode');
   //dpm($newnode, '$newnode before prepare');
   node_object_prepare($newnode);
   //dpm($newnode, '$newnode after prepare');
   $node = node_submit($newnode);
+  //dpm($node, '$node just before saving');
   node_save($node);
   //dpm($node, '$node after save');
   return 'Page content or redirect location TBD... TODO';
 }
 
+
+function _rpgmain_populate_node_npc ($presets = NULL) {
+// TODO Make this function do what its documentation says it should do 8^)
+  module_load_include('inc', 'rpgnaming', 'inc/npc_name.rules');
+  module_load_include('inc', 'npcrules', 'inc/measurements.rules');
+  // $props stores all the properties specific to the node type
+  $props = new stdClass();
+  $randomized_fields = _getfields ('npc');
+  
+  //dpm($randomized_fields, '$randomized_fields');
+
+  //dpm($randomized_fields, '$randomized_fields');
+  foreach ($randomized_fields as $field) {
+    $opts = _getopts ($field);
+    //dpm($opts, '$opts for : ' . $field);
+    $rnd = array_rand($opts);
+    $props->{$field} = array('und' => array(0 => array( 'value' => $rnd)));
+  }
+  //dpm($newnode, '$newnode');
+  $race = $props->field_npc_race['und'][0]['value'];
+  $df = $props->field_distinguishing_features['und'][0]['value'];
+
+  $measurement_fields = generate_npc_measurements ($race, $df);
+  //dpm($measurement_fields, '$measurement_fields');
+
+  foreach ($measurement_fields as $field => $value) {
+    $props->{$field}['und'][0]['value'] = $value;
+  }
+  //dpm($props, '$props');
+  $name = _generate_random_name($props->field_npc_race['und'][0]['value'], $props->field_gender['und'][0]['value']);
+  //dpm($name, '$name in rpgmain_rpg_createnodes()');
+  $props->title = $name;
+//dpm($props, '$props before returning');
+return $props;
+}
+
+
+
 /**
  * The main form_alter that will alter node forms in common ways
  */
 function rpgmain_form_node_form_alter (&$form, &$form_state) {
+ dpm($form_state, '$form_state');
   // Get all of the form elements to be randomized from the module that controls this content type.
   // After getting the elements to be randomized, pre-select all options for that element
   // Name the function _get_random_[node_type_machine_name]_fields.
