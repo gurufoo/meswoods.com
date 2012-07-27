@@ -40,6 +40,28 @@ function _get_random_location_fields () {
 
 
 /**
+* Implementation of hook_node_insert()
+*/
+function locationrules_node_presave($node) {
+  //dpm($node, '$node in locationrules_node_presave()');
+  //////  SET UP THE AUTHORITY HERE ///////////
+  if ($node->type == 'location' && !isset($node->field_location_authority)) {
+    $presets = array();
+    switch ($node->field_location_type['und'][0]['value']) {
+      case '391':// Taverns
+        //dpm('Need to create an authority figure here');
+        $presets['field_profession'] = array(305,308,320); // Tavern-ey professions
+        $authority = rpgmain_rpg_createnode('npc', $presets);
+        $node->field_location_authority['und'][0]['target_type'] = 'node';
+        $node->field_location_authority['und'][0]['target_id'] = $authority->nid;
+        //dpm($authority, '$authority');
+        break;
+    }
+  }
+}
+
+
+/**
 * Generate a short description using the computed_field module.
 
 function computed_field_field_short_description_auto_compute(&$entity_field, $entity_type, $entity, $field, $instance, $langcode, $items) {

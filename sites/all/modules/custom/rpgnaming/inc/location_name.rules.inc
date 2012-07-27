@@ -1,7 +1,7 @@
 <?php
 
 function validate_location_names ($form, &$form_state) {
-  dpm('validate_location_names()');
+  //dpm('validate_location_names()');
   //dpm($form['#validate'], '#validate');
   //dpm($form_state['values'], 'values in ()');
 

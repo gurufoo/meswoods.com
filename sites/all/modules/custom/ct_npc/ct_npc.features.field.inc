@@ -447,6 +447,7 @@ function ct_npc_field_default_fields() {
       'module' => 'list',
       'settings' => array(
         'allowed_values' => array(
+          '_none' => 'None',
           123 => 'Beard, braided',
           124 => 'Beard, dwarven',
           125 => 'Beard, long',
@@ -505,7 +506,7 @@ function ct_npc_field_default_fields() {
       'entity_type' => 'node',
       'field_name' => 'field_facial_hair_style',
       'label' => 'Facial Hair Style',
-      'required' => 0,
+      'required' => 1,
       'settings' => array(
         'user_register_form' => FALSE,
       ),
