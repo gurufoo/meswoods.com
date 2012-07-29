@@ -19,7 +19,6 @@ dependencies[] = text
 features[ctools][] = panelizer:panelizer:1
 features[ctools][] = strongarm:strongarm:1
 features[features_api][] = api:1
-features[field][] = node-location-body
 features[field][] = node-location-field_location_authority
 features[field][] = node-location-field_location_occupants
 features[field][] = node-location-field_location_type

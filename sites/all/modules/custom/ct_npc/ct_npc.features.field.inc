@@ -753,12 +753,9 @@ function ct_npc_field_default_fields() {
       'module' => 'list',
       'settings' => array(
         'allowed_values' => array(
-          374 => 'Afro style',
           373 => 'Cropped',
           370 => 'Curly',
           368 => 'Straight',
-          375 => 'Pigtail style',
-          376 => 'Ponytail style',
           372 => 'Shaved',
           371 => 'Wavy',
           369 => 'Unkempt',

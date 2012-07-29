@@ -36,6 +36,7 @@ function _node_display ($node) {
 }
 
 
+
 /**
 * This is a Parent-type function.  It should call all the child-type functions
 * needed to generate the type of node that $nodetype determines.  After assembling
