@@ -56,3 +56,26 @@ function male_dwarf_facial_hair_likely ($gender, $race, $facial_hair) {
   return $facial_hair;
 }
 
+function npcrules_field_formatter_info () {
+  return array(
+    'npcrules_facialhair_test' => array(
+      'label' => t('Facial Hair Test'),
+      'field types' => array('list_text'),
+    ),
+  );
+}
+
+
+function npcrules_field_formatter_view ($object_type, $object, $field, $instance, $langcode, $items, $display) {
+  dpm($object_type, '$object_type');
+  dpm($object, '$object (the $node in this case)');
+  dpm($field, '$field');
+  dpm($items, '$items');
+  dpm($display, '$display (the field format properties)');
+  $element = array();
+  if ($display['type'] == 'npcrules_facialhair_test') {
+    }
+
+  dpm($element, '$element before returning');
+  return $element;
+}

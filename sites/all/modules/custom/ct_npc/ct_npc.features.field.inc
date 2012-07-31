@@ -485,9 +485,9 @@ function ct_npc_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'list',
+          'module' => 'npcrules',
           'settings' => array(),
-          'type' => 'list_default',
+          'type' => 'npcrules_facialhair_test',
           'weight' => '6',
         ),
         'entityreference_view_widget' => array(
@@ -1105,14 +1105,13 @@ function ct_npc_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'number',
+          'module' => 'jeditable',
           'settings' => array(
-            'decimal_separator' => '.',
-            'prefix_suffix' => TRUE,
-            'scale' => 0,
-            'thousand_separator' => ' ',
+            'empty_text' => '--',
+            'fallback_format' => NULL,
+            'fallback_settings' => array(),
           ),
-          'type' => 'number_integer',
+          'type' => 'jeditable_textfield',
           'weight' => '4',
         ),
         'entityreference_view_widget' => array(
@@ -1416,9 +1415,13 @@ function ct_npc_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'list',
-          'settings' => array(),
-          'type' => 'list_default',
+          'module' => 'jeditable',
+          'settings' => array(
+            'empty_text' => '--',
+            'fallback_format' => NULL,
+            'fallback_settings' => array(),
+          ),
+          'type' => 'jeditable_select',
           'weight' => '0',
         ),
         'entityreference_view_widget' => array(
@@ -1446,7 +1449,7 @@ function ct_npc_field_default_fields() {
         'active' => 1,
         'module' => 'options',
         'settings' => array(),
-        'type' => 'options_buttons',
+        'type' => 'options_select',
         'weight' => '20',
       ),
     ),

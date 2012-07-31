@@ -9,6 +9,7 @@ dependencies[] = computed_field
 dependencies[] = ctools
 dependencies[] = features
 dependencies[] = field_group
+dependencies[] = jeditable
 dependencies[] = list
 dependencies[] = npcrules
 dependencies[] = number

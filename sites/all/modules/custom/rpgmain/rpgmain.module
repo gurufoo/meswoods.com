@@ -18,8 +18,14 @@ function rpgmain_menu () {
       'modal' => TRUE,
       );
 
+  $items['rpgmodal/%node/%'] = array(
+      'page callback' => '_field_edit',
+      'page arguments' => array(1,2),
+      'access arguments' => array('access content'),
+      'modal' => TRUE,
+      );
 
-  return $items;
+    return $items;
 
 }
 
@@ -35,7 +41,9 @@ function _node_display ($node) {
   return $output;
 }
 
-
+function _field_edit ($node, $field) {
+return 'yo  yo yo';
+}
 
 /**
 * This is a Parent-type function.  It should call all the child-type functions
