@@ -9,7 +9,7 @@ function validate_npc_measurements ($form, &$form_state) {
  $df = $form_state['values']['field_distinguishing_features']['und'][0]['value'];
 
   $measurements = generate_npc_measurements($race, $df);
-  dpm($measurements, '$measurements in validate_npc_measurements()');
+  //dpm($measurements, '$measurements in validate_npc_measurements()');
   foreach ($measurements as $field => $measurement) {
   _setopt($field, $measurement, $form, $form_state);
   }

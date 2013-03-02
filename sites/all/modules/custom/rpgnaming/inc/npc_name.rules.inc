@@ -29,12 +29,17 @@ function validate_npc_names ($form, &$form_state) {
 }
 
 function _generate_random_name($race, $gender) {
-  //dpm($race, '$race in _generate_random_name()');
-  //dpm($gender, '$gender in _generate_random_name()');
-
   $query = "SELECT givenname FROM name_npc_given WHERE race = :race AND gender = :gender ORDER BY RAND() LIMIT 1";
   $args = array(':race' => $race, ':gender' => $gender);
   $given_name = db_query($query, $args)->fetchField();
+
+  if ($given_name == '') {
+  drupal_set_message('No name for the race and gender was found, now generating a name irrespective of race.');
+  $query = "SELECT givenname FROM name_npc_given WHERE gender = :gender ORDER BY RAND() LIMIT 1";
+  $args = array(':gender' => $gender);
+  $given_name = db_query($query, $args)->fetchField();
+
+  }
 
 
   switch ($race) {

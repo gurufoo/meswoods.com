@@ -1,5 +1,7 @@
 <?php
 
+
+
 /**
 * Load the various rules files
 */
@@ -10,11 +12,13 @@ module_load_include('inc', 'npcrules', 'inc/measurements.rules');
 
 
 
+
 /**
 * This specifically affets the NPC content type creation form
 */
 function npcrules_form_npc_node_form_alter (&$form, &$form_state, $form_id) {
-  //dpm($form_id, '$form_id');
+
+//dpm($form_id, '$form_id');
   //dpm($form_state, '$form_state');
   //dpm($form, '$form');
 
@@ -26,8 +30,8 @@ function npcrules_form_npc_node_form_alter (&$form, &$form_state, $form_id) {
     $form['title']['#default_value'] = 'Choose a random name for me';
 
 
-    $form['#validate'][] = 'facial_hair_female_no_hair'; // Females don't have facial  hair
-    $form['#validate'][] = 'facial_hair_male_dwarf_likely'; // Male Dwarves are likely to have facial hair
+    $form['#validate'][] = 'validate_female_facial_hair'; // Females don't have facial  hair
+    $form['#validate'][] = 'validate_maile_dwarf_facial_hair_likely'; // Male Dwarves are likely to have facial hair
     //$form['#validate'][] = 'profession_adventurer_unlikely'; // NPCs aren't likely to have adventuring professions
     $form['#validate'][] = 'validate_npc_measurements'; // Generate an NPCs numerical measurements (e.g. height, age, weight)
     //$form['#validate'][] = 'generate_npc_weight'; // Generate an NPCs weight
@@ -77,7 +81,7 @@ function computed_field_field_short_description_auto_compute(&$entity_field, $en
   $fields = _get_random_npc_fields();
   $values = array();
   foreach ($fields as $field) {
-    //dpm($field, '$field');
+
     $var = field_get_items('node', $entity, $field);
     //dpm($field, '$field');
     //dpm($var, '$var');
@@ -179,7 +183,7 @@ function computed_field_field_short_description_auto_compute(&$entity_field, $en
   break;
   }
 
-  shuffle($desc);
+  //shuffle($desc);
   $entity_field[0]['value'] = implode(' ',$desc);
 }
 
@@ -191,7 +195,7 @@ function _placeholder_display ($content, $node) {
   //dpm($content, '$mannerisms');
   //dpm($node, '$node');
   
-  //Set up the gender pronouna
+  //Set up the gender pronoun
   $gender = $node->field_gender['und'][0]['value'];
   
   $patterns = array();
